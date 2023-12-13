@@ -1,0 +1,43 @@
+﻿<Window x:Class="MediaPlayer.Views.Dialog.RenamePlaylist"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MediaPlayer.Views.Dialog"
+        mc:Ignorable="d"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Background="#2a213a"
+        Foreground="#fff"
+        FontFamily="Inter"
+        FocusManager.FocusedElement="{x:Reference playlistName}"
+        Title="Media Player Dialog" Height="150" Width="320">
+    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+        <TextBox x:Name="playlistName" Width="250" Height="40"
+                 TextChanged="playlistName_TextChanged"
+                 KeyDown="OnKeyDownHandler"
+                 Text="{Binding newName}"
+             FontSize="20"
+             Margin="10"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Button
+                Background="#9b4de0"
+                Width="130"
+                Content="Rename"
+                Name="RenameBtn"
+                Click="RenameBtn_Click"
+                Margin="0,0,10,0"
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
+                ToolTip="Resource name: MaterialDesignRaisedSecondaryDarkButton" 
+             />
+            <Button
+                    Width="130"
+                    Content="Cancle"
+                    Name="CancleBtn"
+                    Click="CancleBtn_Click"
+                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                    Style="{StaticResource MaterialDesignPaperDarkButton}"
+                    ToolTip="Resource name: MaterialDesignPaperDarkButton" />
+        </StackPanel>
+    </StackPanel>
+</Window>

@@ -1,0 +1,56 @@
+﻿<Window x:Class="MediaPlayer.MainWindow"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MediaPlayer"
+        mc:Ignorable="d"
+        Title="Media Player" 
+        WindowStartupLocation="CenterScreen" SnapsToDevicePixels="True"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        SizeChanged="update_size"
+        Height="700" Width="1200">
+    <DockPanel LastChildFill="True" Background="#2a213a">
+        <GroupBox DockPanel.Dock="Bottom" Name="MediaService" Padding="0">
+            <GroupBox.Header>
+                <Border Background="#2a213a">
+                    <Label Content=""></Label>
+                </Border>
+            </GroupBox.Header>
+        </GroupBox>
+        <GroupBox Padding="10, 0, 10, 0" x:Name="videoScreen" Width="1200" Visibility="Collapsed" Background="#2a213a">
+            <DockPanel>
+                <DockPanel LastChildFill="True">
+                    <Button
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignIconButton}"
+                        ToolTip="MaterialDesignIconButton" Width="50" Height="50"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Name="btnBack"
+                        Margin="0,10,0,0"
+                        Click="btnBack_Click">
+                        <materialDesign:PackIcon Kind="ChevronLeft" Width="50" Height="50"/>
+                    </Button>
+                    <StackPanel x:Name="containerSt" Orientation="Vertical" Margin="0,30,50,0">
+                        <Image Source="{Binding MusicPlayerViewModel.CurrentMedia.ArtCover}" Name="imageScreenMusic"/>
+                        
+                        <MediaElement Name="mediaElement" MouseLeftButtonDown="mediaElement_MouseLeftButtonDown" MaxHeight="500" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
+
+                </DockPanel>
+            </DockPanel>
+            
+
+        </GroupBox>
+        <GroupBox Name="CurrentComponent" HorizontalAlignment="Stretch" FontSize="30" FontFamily="Sylfaen" FontWeight="Bold"
+                  Background="#2a213a" Padding="10, 0, 10, 0"
+                  >
+            <GroupBox.Header>
+                <Border Background="#2a213a">
+                </Border>
+            </GroupBox.Header>
+        </GroupBox>
+    </DockPanel>
+</Window>
