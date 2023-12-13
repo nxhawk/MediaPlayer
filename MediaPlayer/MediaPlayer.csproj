@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assets\Images\small_playlist.png" />
     <None Remove="Assets\Images\title.png" />
     <None Remove="Assets\Images\white.png" />
     <None Remove="Assets\Images\zing.jpg" />
@@ -23,9 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\Images\small_playlist.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Assets\Images\title.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
