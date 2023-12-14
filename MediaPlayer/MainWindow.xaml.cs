@@ -26,6 +26,7 @@ namespace MediaPlayer
         public MusicPlayerViewModel MusicPlayerViewModel { get; set; }
         public UserControl? PrevPage { get; set; }
         private bool isShowVideoScreen = false;
+        private bool redirect = true;
 
         public IDictionary<string, UserControl> userControls { get; set; } = new Dictionary<string, UserControl>();
         public MainWindow()
@@ -73,6 +74,20 @@ namespace MediaPlayer
                true
                );
             HotkeysManager.AddHotkey(playPrevHotkey);
+
+            //press key ctrl r to prevent/not to redirect video next song
+            GlobalHotkey playRedirHotkey = new GlobalHotkey(ModifierKeys.Control, Key.R,
+               () =>  redirect = !redirect
+               ,true
+               );
+            HotkeysManager.AddHotkey(playRedirHotkey);
+
+            //press key ctrl p to open current playlist
+            GlobalHotkey playOpenPlHotkey = new GlobalHotkey(ModifierKeys.Control, Key.P,
+               () => showCurrentPlayList()
+               , true
+               );
+            HotkeysManager.AddHotkey(playOpenPlHotkey);
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -98,6 +113,7 @@ namespace MediaPlayer
         {
             if(type == 0)
             {
+                if (!redirect) return;
                 if (isShowVideoScreen) return;
                 EmptyPage newPage = (EmptyPage)userControls["EmptyPage"];
                 PrevPage = (UserControl)CurrentComponent.Content;
@@ -121,7 +137,7 @@ namespace MediaPlayer
             videoScreen.Visibility = Visibility.Collapsed;
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged; 
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
