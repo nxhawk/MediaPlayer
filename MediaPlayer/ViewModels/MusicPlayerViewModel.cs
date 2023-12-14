@@ -220,7 +220,7 @@ namespace MediaPlayer.ViewModels
         // handle delete playlist
         public bool CanDeletePlaylist(Playlist Playlist)
         {
-            if (CurrentPlaylist.Name == Playlist.Name)
+            if (CurrentPlaylist?.Name == Playlist.Name)
             {
                 return false;
             }
