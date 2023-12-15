@@ -67,7 +67,6 @@ namespace MediaPlayer.Views.UC
             {
                 var seekValue = (int)MediaSlider.Value;
                 MusicPlayerViewModel.CurrentTime = new TimeSpan(0, 0, 0, 0, seekValue);
-                int seconds = seekValue/1000;
 
                 MusicPlayerViewModel.showPreviewVideo();
                 DateTime now = DateTime.Now;
@@ -146,12 +145,10 @@ namespace MediaPlayer.Views.UC
             {
                 volumeIcon.Kind = PackIconKind.VolumeHigh;
             }
-            isDragging = false;
         }
 
         private void VolumeSlider_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            isDragging = true;
         }
 
         private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
