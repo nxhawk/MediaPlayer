@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace MediaPlayer
 {
@@ -36,7 +37,6 @@ namespace MediaPlayer
             Loaded += MainWindow_Loaded;
             Uri icon = new Uri("pack://application:,,,/Assets/Images/title.png", UriKind.RelativeOrAbsolute);
             Icon = BitmapFrame.Create(icon);
-
 
         }
 

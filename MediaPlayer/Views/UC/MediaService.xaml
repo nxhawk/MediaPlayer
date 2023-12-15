@@ -29,6 +29,7 @@
                     PreviewMouseUp="MediaSlider_PreviewMouseUp"
                     PreviewMouseLeftButtonDown="MediaSlider_PreviewMouseLeftButtonDown"
                     ValueChanged="MediaSlider_ValueChanged"
+                    Panel.ZIndex="100"
                     Foreground="#9b4de0"
                 >
 

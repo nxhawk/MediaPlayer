@@ -66,25 +66,44 @@ namespace MediaPlayer.Views.UC
             if (isDragging)
             {
                 var seekValue = (int)MediaSlider.Value;
-                MusicPlayerViewModel.CurrentTime = TimeSpan.Zero;
+                MusicPlayerViewModel.CurrentTime = new TimeSpan(0, 0, 0, 0, seekValue);
+                int seconds = seekValue/1000;
+
+                MusicPlayerViewModel.showPreviewVideo();
+                DateTime now = DateTime.Now;
+                if (now - lastPositionUpdateTime >= updateInterval)
+                { 
+                    lastPositionUpdateTime = now;
+                    MusicPlayerViewModel.MediaElement.Volume = 0;
+                    MusicPlayerViewModel.MediaElement.Position = new TimeSpan(0, 0, 0, 0, seekValue);
+                    MusicPlayerViewModel.MediaElement.Volume = MusicPlayerViewModel.storeVolume;
+                }
             }
         }
+
+        private TimeSpan updateInterval = TimeSpan.FromSeconds(0.2);
+        private DateTime lastPositionUpdateTime;
 
         private void MediaSlider_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             var seekValue = (int)MediaSlider.Value;
+            
             if (MusicPlayerViewModel.CurrentState == "Pause")
             {
                 MusicPlayerViewModel.changeStateMusic();
             }
             MusicPlayerViewModel.MediaElement.Position = new TimeSpan(0, 0, 0, 0, seekValue);
+            MusicPlayerViewModel.MediaElement.Play();
             MusicPlayerViewModel.CurrentTime = new TimeSpan(0, 0, 0, 0, seekValue);
+            if (isDragging) MusicPlayerViewModel.IsDragging = false;
             isDragging = false;
+            mainWindow.canvasPreview.Visibility = Visibility.Collapsed;
         }
 
         private void MediaSlider_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             isDragging = true;
+            MusicPlayerViewModel.IsDragging = true;
         }
 
         private void btnPlay_Click(object sender, RoutedEventArgs e)
@@ -187,5 +206,7 @@ namespace MediaPlayer.Views.UC
         {
             mainWindow.showCurrentPlayList();
         }
+
+        
     }
 }

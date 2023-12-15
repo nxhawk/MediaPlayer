@@ -12,6 +12,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace MediaPlayer.ViewModels
@@ -35,8 +38,12 @@ namespace MediaPlayer.ViewModels
         public string typeContinueMusic { get; set; } = "Linear";
 
         public double Progress { get; set; } = 0;
+        [JsonIgnore]
+        public bool IsDragging { get; set; } = false;
 
         private DispatcherTimer timer;
+        [JsonIgnore]
+        private List<WriteableBitmap> storeImagePreview = new List<WriteableBitmap>();
 
         [JsonIgnore]
         public Media CurrentMedia
@@ -94,17 +101,15 @@ namespace MediaPlayer.ViewModels
                 iconPlay.Kind = PackIconKind.Pause;
 
                 timer = new DispatcherTimer();
-                timer.Interval = TimeSpan.FromSeconds(1);
+                timer.Interval = TimeSpan.FromMilliseconds(10);
                 timer.Tick += new EventHandler(timer_Tick!);
                 timer.Start();
-
-
             }
         }
 
         private void changeStatus()
         {
-            if (CurrentState == "Play") {
+            if (CurrentState == "Play"&& !IsDragging) {
                 CurrentTime = MediaElement.Position;
                 Progress = MediaElement.Position.TotalMilliseconds;
             }
@@ -129,7 +134,6 @@ namespace MediaPlayer.ViewModels
                     MediaElement.Pause();
                     iconPlay.Kind = PackIconKind.Play;
                     CurrentState = "Pause";
-                   
                 }
                 else
                 {
@@ -225,6 +229,30 @@ namespace MediaPlayer.ViewModels
                 return false;
             }
             return true;
+        }
+
+        public void showPreviewVideo()
+        {
+            if (Path.GetExtension(CurrentMedia.Fullpath).ToLower() == ".mp4")
+            {
+                int width = (int)MediaElement.ActualWidth;
+                int height = (int)MediaElement.ActualHeight;
+                RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap(width, height, 60, 60, PixelFormats.Pbgra32);
+                renderTargetBitmap.Render(MediaElement);
+                WriteableBitmap bitmap = new WriteableBitmap(renderTargetBitmap);
+                var mainwindow = (MainWindow)Application.Current.MainWindow;
+                mainwindow.changeSizeVideoScreen();
+                mainwindow.previewImage.Source = bitmap;
+                mainwindow.canvasPreview.Visibility = Visibility.Visible;
+
+                // calculate position screen
+                var currentSize = mainwindow.ActualWidth;
+                var pos = (CurrentTime.TotalMilliseconds - Duration.TotalMilliseconds/2) * (currentSize/ Duration.TotalMilliseconds)*3/2;
+                
+                Thickness margin = mainwindow.canvasPreview.Margin;
+                margin.Left=pos;
+                mainwindow.canvasPreview.Margin = margin;
+            }
         }
     }
 }
