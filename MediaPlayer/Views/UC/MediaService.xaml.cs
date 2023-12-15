@@ -27,12 +27,14 @@ namespace MediaPlayer.Views.UC
         public MainWindow mainWindow { get; private set; }
         public MusicPlayerViewModel MusicPlayerViewModel { get; set; }
         private float storeVolume = 1;
+        private bool isEnter = false;
         public MediaService()
         {
             InitializeComponent();
             mainWindow = (MainWindow)Application.Current.MainWindow;
             MusicPlayerViewModel = mainWindow.MusicPlayerViewModel;
             mainWindow.SizeChanged += MainWindow_SizeChanged;
+
             Loaded += MediaService_Loaded;
         }
 
@@ -63,11 +65,10 @@ namespace MediaPlayer.Views.UC
 
         private void MediaSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            var seekValue = (int)MediaSlider.Value;
             if (isDragging)
             {
-                var seekValue = (int)MediaSlider.Value;
                 MusicPlayerViewModel.CurrentTime = new TimeSpan(0, 0, 0, 0, seekValue);
-
                 MusicPlayerViewModel.showPreviewVideo();
                 DateTime now = DateTime.Now;
                 if (now - lastPositionUpdateTime >= updateInterval)
@@ -77,6 +78,15 @@ namespace MediaPlayer.Views.UC
                     MusicPlayerViewModel.MediaElement.Position = new TimeSpan(0, 0, 0, 0, seekValue);
                     MusicPlayerViewModel.MediaElement.Volume = MusicPlayerViewModel.storeVolume;
                 }
+            }
+
+            bool mouseIsDown = System.Windows.Input.Mouse.LeftButton == MouseButtonState.Pressed;
+            if (mouseIsDown && isEnter && !isDragging)
+            {
+                MusicPlayerViewModel.IsDragging = true;
+                MusicPlayerViewModel.CurrentTime = new TimeSpan(0, 0, 0, 0, seekValue);
+                MusicPlayerViewModel.MediaElement.Position = new TimeSpan(0, 0, 0, 0, seekValue);
+                MusicPlayerViewModel.IsDragging = false;
             }
         }
 
@@ -204,6 +214,14 @@ namespace MediaPlayer.Views.UC
             mainWindow.showCurrentPlayList();
         }
 
-        
+        private void MediaSlider_MouseEnter(object sender, MouseEventArgs e)
+        {
+            isEnter = true;
+        }
+
+        private void MediaSlider_MouseLeave(object sender, MouseEventArgs e)
+        {
+            isEnter = false;
+        }
     }
 }

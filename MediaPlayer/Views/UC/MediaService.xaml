@@ -10,7 +10,7 @@
              DataContext="{Binding RelativeSource={RelativeSource Self}}"
              >
     <StackPanel DockPanel.Dock="Bottom" Height="100" Background="#2a213a">
-        <DockPanel LastChildFill="True" >
+        <DockPanel LastChildFill="True">
             <TextBlock DockPanel.Dock="Left" Margin="10,0,10,0" Foreground="#fff"
                        Text="{Binding MusicPlayerViewModel.CurrentTime,StringFormat={}{0:hh}:{0:mm}:{0:ss},
                 FallbackValue=00:00:00}"
@@ -25,15 +25,15 @@
                     Maximum="{Binding MusicPlayerViewModel.Duration.TotalMilliseconds, FallbackValue=1}"
                     Minimum="0"
                     Value="{Binding MusicPlayerViewModel.Progress, FallbackValue=1}"
-                    IsMoveToPointEnabled="True" VerticalAlignment="Center"
+                    IsMoveToPointEnabled="True"
                     PreviewMouseUp="MediaSlider_PreviewMouseUp"
                     PreviewMouseLeftButtonDown="MediaSlider_PreviewMouseLeftButtonDown"
                     ValueChanged="MediaSlider_ValueChanged"
                     Panel.ZIndex="100"
-                    Foreground="#9b4de0"
-                >
-
-            </Slider>
+                    Foreground="#9b4de0" 
+                    MouseEnter="MediaSlider_MouseEnter"
+                    MouseLeave="MediaSlider_MouseLeave"
+                />
 
         </DockPanel>
         <Grid>
