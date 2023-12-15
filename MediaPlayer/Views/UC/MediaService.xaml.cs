@@ -199,7 +199,7 @@ namespace MediaPlayer.Views.UC
         private void showVideoScreen_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (MusicPlayerViewModel.CurrentMedia == null) return;
-            mainWindow.changeSizeVideoScreen();
+            mainWindow.changeSizeVideoScreen(2);
         }
 
         private void showCurrentPlayList_Click(object sender, RoutedEventArgs e)

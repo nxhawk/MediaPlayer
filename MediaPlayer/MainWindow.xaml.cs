@@ -111,19 +111,20 @@ namespace MediaPlayer
 
         public void changeSizeVideoScreen(int type=0)
         {
-            if(type == 0)
+            if(type == 1)
             {
-                if (!redirect) return;
-                if (isShowVideoScreen) return;
-                EmptyPage newPage = (EmptyPage)userControls["EmptyPage"];
-                PrevPage = (UserControl)CurrentComponent.Content;
-                CurrentComponent.Content = newPage;
-                videoScreen.Visibility = Visibility.Visible;
-                isShowVideoScreen = true;
+                isShowVideoScreen = false;
+                videoScreen.Visibility = Visibility.Collapsed;
                 return;
             }
-            isShowVideoScreen = false;
-            videoScreen.Visibility = Visibility.Collapsed;
+            if (!redirect && type!=2) return;
+            if (isShowVideoScreen) return;
+            EmptyPage newPage = (EmptyPage)userControls["EmptyPage"];
+            PrevPage = (UserControl)CurrentComponent.Content;
+            CurrentComponent.Content = newPage;
+            videoScreen.Visibility = Visibility.Visible;
+            isShowVideoScreen = true;
+
         }
 
         public void showCurrentPlayList()
