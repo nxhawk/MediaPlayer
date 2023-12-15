@@ -30,41 +30,6 @@ namespace MediaPlayer.Models
                 return _tagFile.Tag.Title;
             }
         }
-        [JsonProperty("Artist")]
-        public string Artist
-        {
-            get
-            {
-                return _tagFile.Tag.FirstPerformer;
-            }
-        }
-
-        [JsonProperty("Album")]
-        public string Album
-        {
-            get
-            {
-                return _tagFile.Tag.Album;
-            }
-        }
-
-        [JsonProperty("Year")]
-        public uint Year
-        {
-            get
-            {
-                return _tagFile.Tag.Year;
-            }
-        }
-
-        [JsonProperty("Genre")]
-        public string Genre
-        {
-            get
-            {
-                return _tagFile.Tag.FirstGenre;
-            }
-        }
 
         [JsonProperty("Duration")]
         public string Duration

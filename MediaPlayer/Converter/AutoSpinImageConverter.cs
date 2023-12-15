@@ -13,7 +13,7 @@ namespace MediaPlayer.Converter
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var currentTime = (TimeSpan)value;
-            return (int)currentTime.TotalMilliseconds/80;
+            return (int)currentTime.TotalMilliseconds/70;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
