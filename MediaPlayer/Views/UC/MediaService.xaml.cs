@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -222,6 +223,11 @@ namespace MediaPlayer.Views.UC
         private void MediaSlider_MouseLeave(object sender, MouseEventArgs e)
         {
             isEnter = false;
+        }
+
+        private void oldMediaBtn_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindow.showRecentlyMedia();
         }
     }
 }

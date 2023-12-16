@@ -1,0 +1,87 @@
+﻿<UserControl x:Class="MediaPlayer.Views.UC.RecentlyMediaPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:converter="clr-namespace:MediaPlayer.Converter"
+             
+             xmlns:local="clr-namespace:MediaPlayer.Views.UC"
+             mc:Ignorable="d" 
+             DataContext="{Binding RelativeSource={RelativeSource Self}}"
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <converter:TimeSpanToMinuteConverter x:Key="TimeSpanToMinuteConverter"/>
+    </UserControl.Resources>
+    <DockPanel LastChildFill="True">
+        <DockPanel.Background>
+            <LinearGradientBrush StartPoint="0 0" EndPoint="0 0.5">
+                <LinearGradientBrush.GradientStops>
+                    <GradientStop Offset="0" Color="#2a213a" />
+                    <GradientStop Offset="1" Color="#34224f" />
+                </LinearGradientBrush.GradientStops>
+            </LinearGradientBrush>
+        </DockPanel.Background>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+            <Button
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                Style="{StaticResource MaterialDesignIconButton}"
+                ToolTip="MaterialDesignIconButton" Width="50" Height="50"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="0,0,0,0"
+                Name="btnBack"
+                Click="btnBack_Click"
+            >
+                <materialDesign:PackIcon Kind="ChevronLeft" Width="50" Height="50"/>
+            </Button>
+            <TextBlock Text="Recently played" Margin="10,10,0,0" FontSize="30" FontWeight="ExtraBold"
+           DockPanel.Dock="Top" FontFamily="Inter" Foreground="#fff"/>
+
+        </StackPanel>
+
+        <ListView
+    x:Name="tracksListView"
+    ItemsSource="{Binding musicPlayerViewModel.RecentlyPlayed, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+    AlternationCount="2"
+    ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent"
+    AllowDrop="True"
+    MouseDoubleClick="tracksListView_MouseDoubleClick"
+            
+    >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Width="1100">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="60"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Image Grid.Column="0" Source="{Binding Media.ArtCover}" Width="40" Height="40">
+                            <Image.Clip>
+                                <RectangleGeometry RadiusX="5" RadiusY="5" Rect="0,0,40,40"/>
+                            </Image.Clip>
+                        </Image>
+
+                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="{Binding Media.Title}" Foreground="#fff" FontSize="18" Margin="10,0,0,0" FontFamily="Inter">
+                        </TextBlock>
+
+                        <TextBlock Text="{Binding Media.PlayListName, Mode=OneWay}" Grid.Column="2" FontFamily="Inter"
+                        VerticalAlignment="Center"  FontSize="15" Foreground="red"  HorizontalAlignment="Left"/>
+
+                        <TextBlock Text="{Binding storeTime, Converter={StaticResource TimeSpanToMinuteConverter}}" Grid.Column="3" FontFamily="Inter"
+                        VerticalAlignment="Center"  FontSize="13" Foreground="#dadada"  HorizontalAlignment="Right"/>
+                        
+                        <TextBlock Text="{Binding Media.Duration, Mode=OneWay}" Grid.Column="4" FontFamily="Inter"
+                       VerticalAlignment="Center"  FontSize="13" Foreground="#dadada"  HorizontalAlignment="Right"/>
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </DockPanel>
+</UserControl>

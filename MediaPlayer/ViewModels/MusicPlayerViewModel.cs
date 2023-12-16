@@ -16,12 +16,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Media;
 using System.Windows.Threading;
+using System.Collections.ObjectModel;
 
 namespace MediaPlayer.ViewModels
 {
     public class MusicPlayerViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
+        [JsonIgnore]
+        public ObservableCollection<StoreMedia> RecentlyPlayed { get; set; } = new ObservableCollection<StoreMedia>();
         public int MediaIndex { get; set; }
         public Playlist CurrentPlaylist { get; set; }
         [JsonIgnore]
@@ -67,6 +70,12 @@ namespace MediaPlayer.ViewModels
             }
             if (CurrentPlaylist != null)
             {
+                
+                addRecentlyPlayed();
+                if (RecentlyPlayed.Count > 100)
+                {
+                    RecentlyPlayed.RemoveAt(100);
+                }
                 CurrentMedia = CurrentPlaylist.Medias[MediaIndex];
                 CurrentTime = new TimeSpan(0, 0, 0, 0, 0);
             }
@@ -79,7 +88,7 @@ namespace MediaPlayer.ViewModels
                 CurrentState = "Play";
                 MediaElement.LoadedBehavior = MediaState.Manual;
                 MediaElement.UnloadedBehavior = MediaState.Manual;
-                MediaElement.Volume = storeVolume;
+                //MediaElement.Volume = storeVolume;
                 MediaElement.MediaOpened += MediaElement_MediaOpened;
                 MediaElement.Play();
                 Progress = MediaElement.Position.TotalMilliseconds;
@@ -194,7 +203,7 @@ namespace MediaPlayer.ViewModels
                 MessageBox.Show(e.Message);
             }
             
-
+            CurrentTime = TimeSpan.Zero;
             if (typeContinueMusic == "Linear" || CurrentPlaylist.Medias.Count == 1) { 
                 setNextSong(1);
             }else
@@ -203,6 +212,13 @@ namespace MediaPlayer.ViewModels
                 setRandomSong();
                 
             }
+        }
+
+        public void addRecentlyPlayed()
+        {
+            if (CurrentMedia == null) return;
+            StoreMedia storeMedia = new StoreMedia(CurrentMedia, CurrentTime, CurrentPlaylist);
+            RecentlyPlayed.Insert(0, storeMedia);
         }
 
         public void redoSong()

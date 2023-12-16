@@ -98,6 +98,7 @@ namespace MediaPlayer
             userControls.Add("MediaPage", new MediaPage());
             userControls.Add("EmptyPage", new EmptyPage());
             userControls.Add("MediaService", new MediaService());
+            userControls.Add("RecentlyMediaPage", new RecentlyMediaPage());
 
             CurrentComponent.Content = userControls["ListPlaylist"];
             MediaService.Content = new MediaService();
@@ -134,6 +135,15 @@ namespace MediaPlayer
             newPage.Playlist = MusicPlayerViewModel.CurrentPlaylist;
             CurrentComponent.Content = newPage;
             PrevPage = userControls["ListPlaylist"];
+            isShowVideoScreen = false;
+            videoScreen.Visibility = Visibility.Collapsed;
+        }
+
+        public void showRecentlyMedia()
+        {
+            RecentlyMediaPage newPage = (RecentlyMediaPage)userControls["RecentlyMediaPage"];
+            PrevPage = (UserControl)CurrentComponent.Content;
+            CurrentComponent.Content = newPage;
             isShowVideoScreen = false;
             videoScreen.Visibility = Visibility.Collapsed;
         }

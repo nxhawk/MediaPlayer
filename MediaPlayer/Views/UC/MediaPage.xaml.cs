@@ -43,6 +43,7 @@ namespace MediaPlayer.Views.UC
            MusicPlayerViewModel = mainWindow.MusicPlayerViewModel;
         }
 
+
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             mainWindow.CurrentComponent.Content = mainWindow.PrevPage;
@@ -55,7 +56,6 @@ namespace MediaPlayer.Views.UC
             dialog.Owner = mainWindow;
             dialog.NameChanged += screen_PlaylistNameChanged;
             var playlistName = Playlist.Name;
-
             if (dialog.ShowDialog()==false)
             {
                 Playlist.Name = playlistName;
@@ -103,7 +103,8 @@ namespace MediaPlayer.Views.UC
                 screen.FileNames.ToList().ForEach(item =>
                 {
                     var fullPath = item;
-                    Playlist.Medias.Add(new Media(fullPath));
+                    var namePlaylist = Playlist.Name;
+                    Playlist.Medias.Add(new Media(fullPath, namePlaylist));
 
                     if (Playlist.Medias.Count <= 4)
                     {

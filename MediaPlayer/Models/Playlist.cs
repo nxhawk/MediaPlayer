@@ -23,7 +23,7 @@ namespace MediaPlayer.Models
 
         private BitmapImage _playlistCover;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         [JsonIgnore]
         public BitmapImage PlaylistCover

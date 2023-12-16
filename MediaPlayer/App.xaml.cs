@@ -78,6 +78,7 @@ namespace MediaPlayer
             {
                 return;
             }
+            _musicPlayerViewModel.MediaElement.Close();
             //save.Path = _musicPlayerViewModel.CurrentMedia.Fullpath;
             //save.Volume = _musicPlayerViewModel.MediaElement.Volume;
             //save.Position = _musicPlayerViewModel.MediaElement.Position;

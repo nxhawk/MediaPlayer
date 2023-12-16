@@ -65,8 +65,8 @@ namespace MediaPlayer.Views.UC
                 screen.FileNames.ToList().ForEach(item =>
                 {
                     var fullPath = item;
-                    
-                    playlistViewModel.Playlists[index].Medias.Add(new Media(fullPath));
+                    var namePlaylist = playlistViewModel.Playlists[index].Name;
+                    playlistViewModel.Playlists[index].Medias.Add(new Media(fullPath, namePlaylist));
                     if (playlistViewModel.Playlists[index].Medias.Count <= 4)
                     {
                         playlistViewModel.Playlists[index].NotifyOnPlaylistChanged();
@@ -94,7 +94,6 @@ namespace MediaPlayer.Views.UC
                     return;
                 }
                 mainWindow.PlaylistViewModel.Playlists.Remove(Playlist);
-                mainWindow.CurrentComponent.Content = mainWindow.PrevPage;
                 mainWindow.PrevPage = null;
             }
             else

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:MediaPlayer.Views.UC"
+             xmlns:gif="http://wpfanimatedgif.codeplex.com"
              xmlns:converter="clr-namespace:MediaPlayer.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="1200"
@@ -12,6 +13,7 @@
              >
     <UserControl.Resources>
         <converter:IndexConverter x:Key="IndexConverter"/>
+        <converter:CheckCurrentMediaIsPlayingConverter x:Key="CheckCurrentMediaIsPlayingConverter"/>
     </UserControl.Resources>
     <Border>
         <Border.Background>
@@ -166,7 +168,7 @@
                                     <RectangleGeometry RadiusX="5" RadiusY="5" Rect="0,0,40,40"/>
                                 </Image.Clip>
                             </Image>
-
+                            
                             <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Title}" Foreground="#fff" FontSize="18" Margin="10,0,0,0" FontFamily="Inter">
                             </TextBlock>
 

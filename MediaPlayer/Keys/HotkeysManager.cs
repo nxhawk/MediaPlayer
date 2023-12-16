@@ -13,7 +13,7 @@ namespace MediaPlayer.Keys
     {
         public delegate void HotkeyEvent(GlobalHotkey hotkey);
 
-        public static event HotkeyEvent? HotkeyFired;
+        public static event HotkeyEvent HotkeyFired;
 
         private delegate IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam);
         private static LowLevelKeyboardProc LowLevelProc = HookCallback;

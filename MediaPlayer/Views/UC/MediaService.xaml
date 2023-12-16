@@ -138,6 +138,14 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
                             Margin="10">
                 <Button
+                        x:Name="oldMediaBtn"
+                        Click="oldMediaBtn_Click"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"
+                        Style="{StaticResource MaterialDesignIconForegroundButton}"
+                        ToolTip="MaterialDesignIconForegroundButton">
+                    <materialDesign:PackIcon Kind="PlaylistPlay" Foreground="#fff" Width="30" Height="30"/>
+                </Button>
+                <Button
                         x:Name="volumeBtn"
                         Click="volumeBtn_Click"
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"

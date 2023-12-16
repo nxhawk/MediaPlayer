@@ -14,6 +14,9 @@ namespace MediaPlayer.Models
 {
     public class Media : INotifyPropertyChanged
     {
+        [JsonProperty("PlayListName")]
+        public string PlayListName { get; set; } = "";
+
         [JsonProperty("Fullpath")]
         public string Fullpath { get; set; }
 
@@ -42,7 +45,7 @@ namespace MediaPlayer.Models
 
         private BitmapImage _artCover;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         [JsonIgnore]
         public BitmapImage ArtCover
@@ -79,10 +82,11 @@ namespace MediaPlayer.Models
             }
         }
 
-        public Media(string fullpath)
+        public Media(string fullpath, string name)
         {
             Fullpath = fullpath;
             _tagFile = TagLib.File.Create(fullpath);
+            PlayListName = name;
         }
     }
 }

@@ -14,7 +14,7 @@ namespace MediaPlayer.ViewModels
     {
         public ObservableCollection<Playlist> Playlists { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
         public PlaylistViewModel()
         {
             Playlists = new ObservableCollection<Playlist>();

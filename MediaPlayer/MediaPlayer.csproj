@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Images\playing.gif" />
     <None Remove="Assets\Images\title.png" />
     <None Remove="Assets\Images\white.png" />
     <None Remove="Assets\Images\zing.jpg" />
@@ -19,9 +20,13 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
     <PackageReference Include="TagLibSharp" Version="2.3.0" />
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Images\playing.gif">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\Images\title.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
