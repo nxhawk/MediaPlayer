@@ -42,8 +42,8 @@ namespace MediaPlayer
 
         private void configMyHotKey()
         {
-            // press space to continue music
-            GlobalHotkey playStopHotkey = new GlobalHotkey(ModifierKeys.None, Key.Space,
+            // press control + space to continue music
+            GlobalHotkey playStopHotkey = new GlobalHotkey(ModifierKeys.Control, Key.Space,
                () =>
                {
                    MediaService mediaControl = (MediaService)userControls["MediaService"];

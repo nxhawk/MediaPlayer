@@ -74,15 +74,18 @@
 
                         <StackPanel Orientation="Horizontal">
                             <Button
-                                Width="130"
+                                Width="100"
                                 FontSize="20"
                                 Name="playBtn"
                                 FontFamily="Inter"
                                 Background="#9b4de0"
                                 Click="playBtn_Click"
                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                                Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                                ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" 
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
+                                materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                                materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                materialDesign:ButtonProgressAssist.Value="-1"
                             >
                                 <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="Play" Height="30" Width="30" VerticalAlignment="Center"/>
@@ -92,44 +95,57 @@
 
                             <Button
                                 FontFamily="Inter"
-                                Width="130"
+                                Width="80"
                                 Margin="10"
-                                FontSize="20"
-                                Content="Add"
                                 Name="AddBtn"
                                 Click="AddBtn_Click"
-                                Foreground="#32323d"
+                                Foreground="Blue"
                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                 Style="{StaticResource MaterialDesignPaperDarkButton}"
                                 ToolTip="Resource name: MaterialDesignPaperDarkButton" 
-                             />
+                             >
+                                <materialDesign:PackIcon Kind="MusicNotePlus" Height="30" Width="30" VerticalAlignment="Center"/>
+                            </Button>
 
                             <Button
-                                Foreground="#32323d"
+                                Foreground="Orange"
                                 FontFamily="Inter"
-                                Width="130"
+                                Width="80"
                                 FontSize="20"
-                                Content="Rename"
                                 Name="RenameBtn"
                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                 Style="{StaticResource MaterialDesignPaperDarkButton}"
                                 ToolTip="Resource name: MaterialDesignPaperDarkButton" 
                                 Click="RenameBtn_Click"
-                            />
+                            >
+                                <materialDesign:PackIcon Kind="Rename" Height="30" Width="30" VerticalAlignment="Center" />
+                            </Button>
 
                             <Button
-                                Foreground="#32323d"
+                                Foreground="red"
                                 FontFamily="Inter"
-                                Width="130"
+                                Width="80"
                                 FontSize="20"
                                 Margin="10"
-                                Content="Delete"
                                 Name="DeleteBtn"
                                 Click="DeleteBtn_Click"
                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                 Style="{StaticResource MaterialDesignPaperDarkButton}"
                                 ToolTip="Resource name: MaterialDesignPaperDarkButton" 
-                            />
+                            >
+                                <materialDesign:PackIcon Kind="Delete" Height="30" Width="30" VerticalAlignment="Center" />
+                            </Button>
+
+                            <Grid Width="120">
+                                <Button
+                                    FontSize="20"
+                                    FontFamily="Inter"
+                                    Content="Save"
+                                    Name="saveBtn"
+                                    Click="saveBtn_Click"
+                                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                    Style="{StaticResource MaterialDesignRaisedButton}" />
+                            </Grid>
                         </StackPanel>
                         
                     </StackPanel>

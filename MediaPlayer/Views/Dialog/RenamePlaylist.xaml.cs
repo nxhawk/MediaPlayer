@@ -37,6 +37,12 @@ namespace MediaPlayer.Views.Dialog
 
         private void RenameBtn_Click(object sender, RoutedEventArgs e)
         {
+            string trimmed = String.Concat(playlistName.Text.Where(c => !Char.IsWhiteSpace(c)));
+
+            if (trimmed.Length == 0)
+            {
+                return;
+            }
             DialogResult = true;
         }
 
@@ -55,6 +61,12 @@ namespace MediaPlayer.Views.Dialog
         {
             if (e.Key == Key.Enter)
             {
+                string trimmed = String.Concat(playlistName.Text.Where(c => !Char.IsWhiteSpace(c)));
+
+                if (trimmed.Length == 0)
+                {
+                    return;
+                }
                 DialogResult = true;
             }
         }

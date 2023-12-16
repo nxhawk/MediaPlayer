@@ -22,6 +22,7 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using System.Collections.ObjectModel;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace MediaPlayer.Views.UC
 {
@@ -211,6 +212,10 @@ namespace MediaPlayer.Views.UC
 
         private string generatePlaylistName(string playlistName)
         {
+            playlistName = playlistName.Trim();
+            Regex trimmer = new Regex(@"\s\s+");
+            playlistName = trimmer.Replace(playlistName, " ");
+
             int index = 0;
             string newName = playlistName;
             bool ck;

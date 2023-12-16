@@ -2,12 +2,16 @@
 using MediaPlayer.ViewModels;
 using MediaPlayer.Views.Dialog;
 using Microsoft.Win32;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,6 +22,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties.System;
 
 namespace MediaPlayer.Views.UC
 {
@@ -61,7 +66,38 @@ namespace MediaPlayer.Views.UC
                 Playlist.Name = playlistName;
                 return;
             }
-            Playlist.Name = dialog.newName;
+            Playlist.Name = generatePlaylistName(dialog.newName);
+        }
+
+        private string generatePlaylistName(string playlistName)
+        {
+            playlistName = playlistName.Trim();
+            Regex trimmer = new Regex(@"\s\s+");
+            playlistName = trimmer.Replace(playlistName, " ");
+
+            PlaylistViewModel playlistViewModel = mainWindow.PlaylistViewModel;
+            int index = 0;
+            string newName = playlistName;
+            bool ck;
+            do
+            {
+                ck = true;
+                for (int i = 0; i < playlistViewModel.Playlists.Count; i++)
+                {
+                    if (playlistViewModel.Playlists[i] != Playlist && playlistName.Equals(playlistViewModel.Playlists[i].Name))
+                    {
+                        ck = false;
+                        break;
+                    }
+                }
+                if (!ck)
+                {
+                    index++;
+                    playlistName = newName + $" ({index})";
+                }
+            } while (!ck);
+
+            return playlistName;
         }
 
         private void screen_PlaylistNameChanged(string newPlaylistName)
@@ -105,7 +141,7 @@ namespace MediaPlayer.Views.UC
                     var fullPath = item;
                     var namePlaylist = Playlist.Name;
                     // check exsited
-                    Media _media = new Media(fullPath, namePlaylist);
+                    Models.Media _media = new Models.Media(fullPath, namePlaylist);
                     bool chk = true;
                     for (int i = 0; i < Playlist.Medias.Count; i++)
                     {
@@ -170,6 +206,51 @@ namespace MediaPlayer.Views.UC
             }
 
             MusicPlayerViewModel.setSong(selectedIndex);
+        }
+
+        private void saveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var folderDialog = new CommonOpenFileDialog
+            {
+                IsFolderPicker = true,
+                Title = "Select a Folder store Playlist"
+            };
+
+            if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                string selectedFolder = folderDialog.FileName;
+                string nameFolder = "My Playlist";
+                string newFolderPath = "";
+                int index = 0;
+                do {
+                    newFolderPath = System.IO.Path.Combine(selectedFolder, nameFolder);
+                    nameFolder = $"My Playlist ({++index})";
+                } while (Directory.Exists(newFolderPath));
+                // good folder path => new folder
+                Directory.CreateDirectory(newFolderPath);
+
+                // store media to this folder
+                foreach (var item in Playlist.Medias)
+                {
+                    string fileName = item.Fullpath;
+                    string[] folderPath = fileName.Split('\\');
+
+                    fileName = folderPath[folderPath.Length - 1];
+                    string filePath = System.IO.Path.Combine(newFolderPath, fileName);
+
+                    WebClient webClient = new WebClient();
+                    try
+                    {
+                        webClient.DownloadFile((new Uri(item.Fullpath)).AbsoluteUri, filePath);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+
+                MessageBox.Show("ok");
+
+            }
         }
     }
 }

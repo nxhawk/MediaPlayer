@@ -29,6 +29,12 @@ namespace MediaPlayer.Views.Dialog
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            string trimmed = String.Concat(playlistName.Text.Where(c => !Char.IsWhiteSpace(c)));
+
+            if (trimmed.Length == 0)
+            {
+                return;
+            }
             newPlaylist = new Playlist(playlistName.Text, new ObservableCollection<Media>());
             DialogResult = true;
         }
@@ -37,6 +43,13 @@ namespace MediaPlayer.Views.Dialog
         {
             if (e.Key == Key.Enter)
             {
+                string trimmed = String.Concat(playlistName.Text.Where(c => !Char.IsWhiteSpace(c)));
+
+                if (trimmed.Length == 0)
+                {
+                    return;
+                }
+
                 newPlaylist = new Playlist(playlistName.Text, new ObservableCollection<Media>());
                 DialogResult = true;
             }
