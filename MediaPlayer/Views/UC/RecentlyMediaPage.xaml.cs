@@ -78,7 +78,7 @@ namespace MediaPlayer.Views.UC
                 }
             }
 
-
+            MessageBox.Show("File deleted");
         }
     }
 }

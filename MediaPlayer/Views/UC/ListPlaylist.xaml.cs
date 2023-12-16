@@ -5,6 +5,7 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.WindowsAPICodePack.Dialogs;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using System.Collections.ObjectModel;
+using System.Reflection;
 
 namespace MediaPlayer.Views.UC
 {
@@ -41,8 +46,9 @@ namespace MediaPlayer.Views.UC
         {
             NewPlaylist dialog = new NewPlaylist();
             dialog.Owner = mainWindow;
-            if ((bool)dialog.ShowDialog())
+            if (dialog.ShowDialog() == true)
             {
+                dialog.newPlaylist.Name = generatePlaylistName(dialog.newPlaylist.Name);
                playlistViewModel.Playlists.Add(dialog.newPlaylist);
             }
         }
@@ -66,11 +72,27 @@ namespace MediaPlayer.Views.UC
                 {
                     var fullPath = item;
                     var namePlaylist = playlistViewModel.Playlists[index].Name;
-                    playlistViewModel.Playlists[index].Medias.Add(new Media(fullPath, namePlaylist));
-                    if (playlistViewModel.Playlists[index].Medias.Count <= 4)
+                    // check exsited
+                    Media _media = new Media(fullPath, namePlaylist);
+                    bool chk = true;
+                    for (int i = 0; i < playlistViewModel.Playlists[index].Medias.Count; i++)
                     {
-                        playlistViewModel.Playlists[index].NotifyOnPlaylistChanged();
+                        if (_media.Title == playlistViewModel.Playlists[index].Medias[i].Title)
+                        {
+                            chk = false;
+                            break;
+                        }
                     }
+
+                    if (chk)
+                    {
+                        // all good
+                        playlistViewModel.Playlists[index].Medias.Add(_media);
+                        if (playlistViewModel.Playlists[index].Medias.Count <= 4)
+                        {
+                            playlistViewModel.Playlists[index].NotifyOnPlaylistChanged();
+                        }
+                    } 
                 });
             }
         }
@@ -131,6 +153,86 @@ namespace MediaPlayer.Views.UC
         private void ListViewItem_DragOver(object sender, DragEventArgs e)
         {
 
+        }
+
+        private void PopupBox_OnClosed(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PopupBox_OnOpened(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void importFolder_Click(object sender, RoutedEventArgs e)
+        {
+            var folderDialog = new CommonOpenFileDialog
+            {
+                IsFolderPicker = true,
+                Title = "Select a Folder your playlist"
+            };
+
+            if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                string selectedFolderPath = folderDialog?.FileName;
+                if (selectedFolderPath == null)
+                {
+                    return;
+                }
+
+                string[] files = Directory.GetFiles(selectedFolderPath, "*", SearchOption.AllDirectories);
+                string[] folderPath = selectedFolderPath.Split('\\');
+                var namePlaylist = folderPath[folderPath.Length - 1];
+
+                //check if playlistname existed
+                namePlaylist = generatePlaylistName(namePlaylist);
+
+                playlistViewModel.Playlists.Add(new Playlist(namePlaylist, new ObservableCollection<Media>()));
+                var index = playlistViewModel.Playlists.Count - 1;
+                // add file music
+                foreach (string item in files)
+                {
+                    // check file is media file
+                    string extension = System.IO.Path.GetExtension(item).ToLower();
+                    if (!(extension == ".mp3" || extension == ".flac" || extension == ".ogg" || extension == ".wav") && !(extension == ".mp4" || extension == ".avi" || extension == ".mkv"))
+                        continue;
+           
+                    // add file music
+                    var fullPath = item;
+                    playlistViewModel.Playlists[index].Medias.Add(new Media(fullPath, namePlaylist));
+                    if (playlistViewModel.Playlists[index].Medias.Count <= 4)
+                    {
+                        playlistViewModel.Playlists[index].NotifyOnPlaylistChanged();
+                    }
+                }
+            }
+        }
+
+        private string generatePlaylistName(string playlistName)
+        {
+            int index = 0;
+            string newName = playlistName;
+            bool ck;
+            do
+            {
+                ck = true;
+                for(int i =0; i < playlistViewModel.Playlists.Count; i++)
+                {
+                    if (playlistName.Equals(playlistViewModel.Playlists[i].Name))
+                    {
+                        ck = false; 
+                        break;
+                    }
+                }
+                if (!ck)
+                {
+                    index++;
+                    playlistName = newName + $" ({index})";
+                }
+            }while (!ck);
+
+            return playlistName;
         }
     }
 }

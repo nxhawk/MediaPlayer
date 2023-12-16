@@ -249,7 +249,8 @@ namespace MediaPlayer.ViewModels
 
         public void showPreviewVideo()
         {
-            if (Path.GetExtension(CurrentMedia.Fullpath).ToLower() == ".mp4")
+            var extension = Path.GetExtension(CurrentMedia.Fullpath).ToLower();
+            if (extension == ".mp4" || extension == ".avi" || extension == ".mkv")
             {
                 int width = (int)MediaElement.ActualWidth;
                 int height = (int)MediaElement.ActualHeight;

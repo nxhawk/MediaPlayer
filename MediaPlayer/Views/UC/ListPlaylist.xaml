@@ -9,18 +9,38 @@
              DataContext="{Binding RelativeSource={RelativeSource Self}}"
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel Background="#2a213a">
-        <StackPanel DockPanel.Dock="Top" Height="80" Orientation="Horizontal" Margin="0,10,0,0">
+        <StackPanel DockPanel.Dock="Top" Height="80" Orientation="Horizontal" Margin="0,20,0,0">
             <TextBlock Text="Playlist" FontSize="50" Height="70" Margin="0,0,20,0" Foreground="#fff" FontFamily="Inter" FontWeight="Bold"/>
-            <Button
-                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                Style="{StaticResource MaterialDesignFloatingActionSecondaryDarkButton}"
-                ToolTip="MaterialDesignFloatingActionSecondaryDarkButton"
-                Width="50"
-                Height="50"
-                Click="addPlaylist_Click"
-                >
-                <materialDesign:PackIcon Kind="Plus" Width="20" Height="20" Foreground="#fff" />
-            </Button>
+            
+            <materialDesign:PopupBox
+                    Closed="PopupBox_OnClosed"
+                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                    Opened="PopupBox_OnOpened"
+                    PlacementMode="RightAndAlignMiddles"
+                    Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
+                    ToolTip="PopupBox, Style MaterialDesignMultiFloatingActionPopupBox"
+                    ToolTipService.Placement="Right">
+                    <StackPanel>
+                    <Button
+                        Width="50"
+                        Height="50"
+                        Click="addPlaylist_Click"
+                    >
+                        <materialDesign:PackIcon Kind="Plus" Width="20" Height="20" />
+                    </Button>
+                    <Button
+                        Width="50"
+                        Height="50"
+                        Click="importFolder_Click"
+                    >
+                        <materialDesign:PackIcon Kind="FolderPlusOutline" Width="20" Height="20" />
+                    </Button>
+                </StackPanel>
+            </materialDesign:PopupBox>
+            
+            
+            
+            
         </StackPanel>
 
         <ListView DockPanel.Dock="Bottom" Background="White"

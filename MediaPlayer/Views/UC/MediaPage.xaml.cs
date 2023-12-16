@@ -104,11 +104,26 @@ namespace MediaPlayer.Views.UC
                 {
                     var fullPath = item;
                     var namePlaylist = Playlist.Name;
-                    Playlist.Medias.Add(new Media(fullPath, namePlaylist));
-
-                    if (Playlist.Medias.Count <= 4)
+                    // check exsited
+                    Media _media = new Media(fullPath, namePlaylist);
+                    bool chk = true;
+                    for (int i = 0; i < Playlist.Medias.Count; i++)
                     {
-                        Playlist.NotifyOnPlaylistChanged();
+                        if (_media.Title == Playlist.Medias[i].Title)
+                        {
+                            chk = false;
+                            break;
+                        }
+                    }
+
+                    if (chk)
+                    {
+                        // all good
+                        Playlist.Medias.Add(_media);
+                        if (Playlist.Medias.Count <= 4)
+                        {
+                            Playlist.NotifyOnPlaylistChanged();
+                        }
                     }
                 });
             }

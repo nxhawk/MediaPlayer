@@ -21,13 +21,14 @@ namespace MediaPlayer.Models
         public string Fullpath { get; set; }
 
         private TagLib.File _tagFile;
+        
         public string Title
         {
             get
             {
-                if (Path.GetExtension(Fullpath).ToLower() == ".mp4")
+                string extension = Path.GetExtension(Fullpath).ToLower();
+                if (extension == ".mp4" || extension == ".avi" || extension == ".mkv")
                 {
-                    
                     return Path.GetFileNameWithoutExtension(Fullpath);
                 }
                 return _tagFile.Tag.Title;
