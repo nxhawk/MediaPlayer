@@ -202,6 +202,7 @@ namespace MediaPlayer.Views.UC
 
             if (MusicPlayerViewModel.CurrentPlaylist != Playlist)
             {
+                MusicPlayerViewModel.tmp = MusicPlayerViewModel.CurrentPlaylist;
                 MusicPlayerViewModel.CurrentPlaylist = Playlist;
             }
 
@@ -248,8 +249,9 @@ namespace MediaPlayer.Views.UC
                     }
                 }
 
-                MessageBox.Show("ok");
-
+                CustomMessageBox dialog = new CustomMessageBox("Save your playlist success!");
+                dialog.Owner = mainWindow;
+                dialog.ShowDialog();
             }
         }
     }

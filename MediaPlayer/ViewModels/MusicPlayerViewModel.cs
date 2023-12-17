@@ -47,6 +47,8 @@ namespace MediaPlayer.ViewModels
         private DispatcherTimer timer;
         [JsonIgnore]
         private List<WriteableBitmap> storeImagePreview = new List<WriteableBitmap>();
+        [JsonIgnore]
+        public Playlist tmp { get; set; } = null;
 
         [JsonIgnore]
         public Media CurrentMedia
@@ -218,6 +220,11 @@ namespace MediaPlayer.ViewModels
         {
             if (CurrentMedia == null) return;
             StoreMedia storeMedia = new StoreMedia(CurrentMedia, CurrentTime, CurrentPlaylist);
+            if (tmp != null)
+            {
+                storeMedia = new StoreMedia(CurrentMedia, CurrentTime, tmp);
+                tmp = null;
+            }
             RecentlyPlayed.Insert(0, storeMedia);
         }
 

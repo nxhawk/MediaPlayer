@@ -1,5 +1,6 @@
 ﻿using MediaPlayer.Models;
 using MediaPlayer.ViewModels;
+using MediaPlayer.Views.Dialog;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -54,12 +55,11 @@ namespace MediaPlayer.Views.UC
             {
                 return;
             }
-
             if (musicPlayerViewModel.RecentlyPlayed[selectedIndex].Media.PlayListName != musicPlayerViewModel.CurrentPlaylist.Name)
             {
+                musicPlayerViewModel.tmp = musicPlayerViewModel.CurrentPlaylist;
                 musicPlayerViewModel.CurrentPlaylist = musicPlayerViewModel.RecentlyPlayed[selectedIndex].playlist;
             }
-
             for (int i = 0; i < mainWindow.PlaylistViewModel.Playlists.Count; i++)
             {
                 if (mainWindow.PlaylistViewModel.Playlists[i].Name == musicPlayerViewModel.RecentlyPlayed[selectedIndex].Media.PlayListName)
@@ -78,7 +78,9 @@ namespace MediaPlayer.Views.UC
                 }
             }
 
-            MessageBox.Show("File deleted");
+            CustomMessageBox dialog = new CustomMessageBox("File deleted");
+            dialog.Owner = mainWindow;
+            dialog.ShowDialog();
         }
     }
 }

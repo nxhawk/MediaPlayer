@@ -9,6 +9,7 @@
         Background="#2a213a"
         Foreground="#fff"
         FontFamily="Inter"
+        FocusManager.FocusedElement="{x:Reference DeleteBtn}"
         >
     <StackPanel Orientation="Vertical" VerticalAlignment="Center" >
         <TextBlock x:Name="playlistName" Width="280" Height="40"
