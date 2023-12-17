@@ -66,9 +66,14 @@ namespace MediaPlayer.Views.UC
 
         private void MediaSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            
             var seekValue = (int)MediaSlider.Value;
             if (isDragging)
             {
+                if (MusicPlayerViewModel.CurrentState == "Pause")
+                {
+                    MusicPlayerViewModel.changeStateMusic();
+                }
                 MusicPlayerViewModel.CurrentTime = new TimeSpan(0, 0, 0, 0, seekValue);
                 MusicPlayerViewModel.showPreviewVideo();
                 DateTime now = DateTime.Now;
