@@ -17,6 +17,7 @@ using System.Windows.Media.Media3D;
 using System.Windows.Media;
 using System.Windows.Threading;
 using System.Collections.ObjectModel;
+using System.Security.Cryptography;
 
 namespace MediaPlayer.ViewModels
 {
@@ -27,6 +28,8 @@ namespace MediaPlayer.ViewModels
         public ObservableCollection<StoreMedia> RecentlyPlayed { get; set; } = new ObservableCollection<StoreMedia>();
         public int MediaIndex { get; set; }
         public Playlist CurrentPlaylist { get; set; }
+        [JsonIgnore]
+        public List<int> myShufflePlaylist { get; set; }
         [JsonIgnore]
         public MediaElement MediaElement { get; set; } = new MediaElement();
 
@@ -78,7 +81,7 @@ namespace MediaPlayer.ViewModels
                 {
                     RecentlyPlayed.RemoveAt(100);
                 }
-                CurrentMedia = CurrentPlaylist.Medias[MediaIndex];
+                CurrentMedia = CurrentPlaylist.Medias[myShufflePlaylist[MediaIndex]];
                 CurrentTime = new TimeSpan(0, 0, 0, 0, 0);
             }
         }
@@ -183,17 +186,6 @@ namespace MediaPlayer.ViewModels
             PlaySound();
         }
 
-        public void setRandomSong()
-        {
-            Random rand = new Random();
-            int index = rand.Next() % CurrentPlaylist.Medias.Count;
-            while (index == MediaIndex)
-            {
-                index = rand.Next() % CurrentPlaylist.Medias.Count;
-            }
-            setSong(index);
-        }
-
         public void MediaContinue()
         {
             try
@@ -206,14 +198,7 @@ namespace MediaPlayer.ViewModels
             }
             
             CurrentTime = TimeSpan.Zero;
-            if (typeContinueMusic == "Linear" || CurrentPlaylist.Medias.Count == 1) { 
-                setNextSong(1);
-            }else
-            {
-                // TODO: shuffle playlist not random media
-                setRandomSong();
-                
-            }
+            setNextSong(1);
         }
 
         public void addRecentlyPlayed()
@@ -233,6 +218,7 @@ namespace MediaPlayer.ViewModels
             if (CurrentMedia == null && CurrentPlaylist != null)
             {
                 CurrentMedia = CurrentPlaylist.Medias[MediaIndex];
+                shufflePlaylist();
                 MediaElement.LoadedBehavior = MediaState.Manual;
                 MediaElement.UnloadedBehavior = MediaState.Manual;
                 MediaElement.Position = CurrentTime;
@@ -276,6 +262,59 @@ namespace MediaPlayer.ViewModels
                 Thickness margin = mainwindow.canvasPreview.Margin;
                 margin.Left=pos;
                 mainwindow.canvasPreview.Margin = margin;
+            }
+        }
+
+        public void retypeMusicPlayType()
+        {
+            if (typeContinueMusic == "Linear")
+            {
+                typeContinueMusic = "Shuffle";
+                shufflePlaylist(1);
+            }
+            else
+            {
+                typeContinueMusic = "Linear";
+                shufflePlaylist(0);
+            }
+        }
+
+        public void shufflePlaylist(int type=0)
+        {
+            if (CurrentPlaylist == null) return;
+            // 0: linear
+            // 1: shuffle
+            myShufflePlaylist = new List<int>();
+            for (int i = 0; i < CurrentPlaylist.Medias.Count; i++)
+            {
+                myShufflePlaylist.Add(i);
+            }
+            if (type == 0)
+            {
+                for (int i = 0; i < CurrentPlaylist.Medias.Count; i++)
+                {
+                    if (CurrentPlaylist.Medias[i].Title == CurrentMedia.Title)
+                    {
+                        MediaIndex = i;
+                        break;
+                    }
+                }    
+            }
+            else
+            {
+                int currentSelecting = CurrentPlaylist.Medias.Count * 5;
+                while (currentSelecting > 0)
+                {
+                    currentSelecting--;
+                    Random rand = new Random();
+                    int index_1 = rand.Next() % CurrentPlaylist.Medias.Count;
+                    int index_2 = rand.Next() % CurrentPlaylist.Medias.Count;
+                    if (myShufflePlaylist[index_1] == MediaIndex || myShufflePlaylist[index_2] == MediaIndex)
+                        continue;
+                    int swapTemp = myShufflePlaylist[index_1];
+                    myShufflePlaylist[index_1] = myShufflePlaylist[index_2];
+                    myShufflePlaylist[index_2] = swapTemp;
+                }
             }
         }
     }

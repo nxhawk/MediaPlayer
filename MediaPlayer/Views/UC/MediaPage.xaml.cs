@@ -116,7 +116,9 @@ namespace MediaPlayer.Views.UC
                 {
                     return;
                 }
+                
                 mainWindow.PlaylistViewModel.Playlists.Remove(Playlist);
+
                 mainWindow.CurrentComponent.Content = mainWindow.PrevPage;
                 mainWindow.PrevPage = null;
             }
@@ -130,6 +132,7 @@ namespace MediaPlayer.Views.UC
 
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
+            List<int> _tmp = new List<int>();
             var screen = new OpenFileDialog();
             screen.Filter = "Media files|*.mp3;*.mp4;*.wav;*.flac;*.ogg;*.avi;*.mkv|All files|*.*"; ;
             screen.Multiselect = true;
@@ -156,12 +159,23 @@ namespace MediaPlayer.Views.UC
                     {
                         // all good
                         Playlist.Medias.Add(_media);
+                        _tmp.Add(Playlist.Medias.Count - 1);
                         if (Playlist.Medias.Count <= 4)
                         {
                             Playlist.NotifyOnPlaylistChanged();
                         }
                     }
                 });
+
+                if (Playlist.Name == MusicPlayerViewModel.CurrentPlaylist.Name)
+                {
+                    //TODO: shuffle tmp
+
+                    foreach (var item in _tmp)
+                    {
+                        MusicPlayerViewModel.myShufflePlaylist.Add(item);
+                    }
+                }
             }
         }
 
@@ -170,6 +184,7 @@ namespace MediaPlayer.Views.UC
             if (Playlist.Medias.Count == 0) return;
             MusicPlayerViewModel.MediaIndex = 0;
             MusicPlayerViewModel.CurrentPlaylist = Playlist;
+            MusicPlayerViewModel.retypeMusicPlayType();
             MusicPlayerViewModel.setNewSong();
             MusicPlayerViewModel.PlaySound();
 
@@ -183,13 +198,24 @@ namespace MediaPlayer.Views.UC
             {
                 return;
             }
-            if (selectedIndex == MusicPlayerViewModel.MediaIndex && Playlist.Name == MusicPlayerViewModel.CurrentPlaylist?.Name)
+            if (selectedIndex == MusicPlayerViewModel.myShufflePlaylist[MusicPlayerViewModel.MediaIndex] && Playlist.Name == MusicPlayerViewModel.CurrentPlaylist?.Name)
             {
                 return;
             }
 
+            int idx = -1;
+            for (int i = 0; i < MusicPlayerViewModel.myShufflePlaylist.Count; i++)
+            {
+                if (MusicPlayerViewModel.myShufflePlaylist[i] > selectedIndex)
+                    MusicPlayerViewModel.myShufflePlaylist[i]--;
+                else if (MusicPlayerViewModel.myShufflePlaylist[i] == selectedIndex)
+                    idx = i;
+            }
+            if (idx != -1)
+            {
+                MusicPlayerViewModel.myShufflePlaylist.RemoveAt(idx);
+            }
             Playlist.Medias.RemoveAt(selectedIndex);
-
         }
 
         private void tracksListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -206,7 +232,9 @@ namespace MediaPlayer.Views.UC
                 MusicPlayerViewModel.CurrentPlaylist = Playlist;
             }
 
+            MusicPlayerViewModel.shufflePlaylist(0);
             MusicPlayerViewModel.setSong(selectedIndex);
+            MusicPlayerViewModel.retypeMusicPlayType();
         }
 
         private void saveBtn_Click(object sender, RoutedEventArgs e)

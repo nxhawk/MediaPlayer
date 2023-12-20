@@ -201,11 +201,13 @@ namespace MediaPlayer.Views.UC
             {
                 iconTypeNextMusic.Kind = PackIconKind.Shuffle;
                 MusicPlayerViewModel.typeContinueMusic = "Shuffle";
+                MusicPlayerViewModel.shufflePlaylist(1);
             }
             else
             {
                 MusicPlayerViewModel.typeContinueMusic = "Linear";
                 iconTypeNextMusic.Kind = PackIconKind.ShuffleDisabled;
+                MusicPlayerViewModel.shufflePlaylist(0);
             }
         }
 

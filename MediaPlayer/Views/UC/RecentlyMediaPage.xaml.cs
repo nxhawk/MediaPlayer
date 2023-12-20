@@ -69,7 +69,11 @@ namespace MediaPlayer.Views.UC
                         if (mainWindow.PlaylistViewModel.Playlists[i].Medias[j].Title == musicPlayerViewModel.RecentlyPlayed[selectedIndex].Media.Title)
                         {
                             var storeTime = mainWindow.MusicPlayerViewModel.RecentlyPlayed[selectedIndex].storeTime;
+                            
+                            musicPlayerViewModel.shufflePlaylist(0);
                             musicPlayerViewModel.setSong(j);
+                            musicPlayerViewModel.retypeMusicPlayType();
+
                             musicPlayerViewModel.CurrentTime = storeTime;
                             musicPlayerViewModel.MediaElement.Position = storeTime;
                             return;

@@ -63,6 +63,7 @@ namespace MediaPlayer.Views.UC
         {
             int index = playlistsListView.SelectedIndex;
 
+            List<int> _tmp = new List<int>();
             var screen = new OpenFileDialog();
             screen.Filter = "All Media Files|*.wav;*.aac;*.wma;*.wmv;*.avi;*.mpg;*.mpeg;*.m1v;*.mp2;*.mp3;*.mpa;*.mpe;*.m3u;*.mp4;*.mov;*.3g2;*.3gp2;*.3gp;*.3gpp;*.m4a;*.cda;*.aif;*.aifc;*.aiff;*.mid;*.midi;*.rmi;*.mkv;*.WAV;*.AAC;*.WMA;*.WMV;*.AVI;*.MPG;*.MPEG;*.M1V;*.MP2;*.MP3;*.MPA;*.MPE;*.M3U;*.MP4;*.MOV;*.3G2;*.3GP2;*.3GP;*.3GPP;*.M4A;*.CDA;*.AIF;*.AIFC;*.AIFF;*.MID;*.MIDI;*.RMI;*.MKV";
             screen.Multiselect = true;
@@ -89,12 +90,23 @@ namespace MediaPlayer.Views.UC
                     {
                         // all good
                         playlistViewModel.Playlists[index].Medias.Add(_media);
+                        _tmp.Add(playlistViewModel.Playlists[index].Medias.Count - 1);
                         if (playlistViewModel.Playlists[index].Medias.Count <= 4)
                         {
                             playlistViewModel.Playlists[index].NotifyOnPlaylistChanged();
                         }
                     } 
                 });
+
+                
+                if (playlistViewModel.Playlists[index].Name ==mainWindow.MusicPlayerViewModel.CurrentPlaylist.Name)
+                {
+                    //TODO: shuffle tmp
+                    foreach (var item in _tmp)
+                    {
+                        mainWindow.MusicPlayerViewModel.myShufflePlaylist.Add(item);
+                    }
+                }
             }
         }
 

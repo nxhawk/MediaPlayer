@@ -110,5 +110,6 @@ namespace MediaPlayer.Models
         {
             PlaylistCover = CombineImage();
         }
+    
     }
 }
