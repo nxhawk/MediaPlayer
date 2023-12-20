@@ -53,7 +53,7 @@
                                 </Ellipse.Fill>
                             </Ellipse>
 
-                            <MediaElement Name="mediaElement" MouseLeftButtonDown="mediaElement_MouseLeftButtonDown" MaxHeight="500" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <MediaElement Name="mediaElement" MouseLeftButtonDown="mediaElement_MouseLeftButtonDown" Height="500" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </StackPanel>
 
                     </DockPanel>
