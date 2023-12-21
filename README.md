@@ -35,5 +35,6 @@
 - [x] 2. Có thể lưu lại tất cả playlist hiện có trên ứng dụng (khi đóng ứng dụng) và tự động load lại (khi mở lại ứng dụng)
 - [x] 3. Có thể lưu lại bài nhạc đang phát (cả playlist) (khi đóng ứng dụng) và tự động load lại (khi mở lại ứng dụng)
 - [x] 4. Cho phép tạo nhiều playlist khác nhau
-# IV Video demo:
+# Điểm đề nghị: 10
+# Video demo
 (Link video)[]
