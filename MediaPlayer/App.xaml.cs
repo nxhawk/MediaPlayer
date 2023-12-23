@@ -7,13 +7,7 @@ using File = System.IO.File;
 
 namespace MediaPlayer
 {
-    public class Constants
-    {
-        public const int NON_REPLAYING = 0;
-        public const int REPLAY_PLAYLIST = 1;
-        public const int REPLAY_SINGLE = 2;
-    }
-
+   
     public partial class App : Application
     {
         private PlaylistViewModel _playlistViewModel = new PlaylistViewModel();
@@ -79,11 +73,6 @@ namespace MediaPlayer
                 return;
             }
             _musicPlayerViewModel.MediaElement.Close();
-            //save.Path = _musicPlayerViewModel.CurrentMedia.Fullpath;
-            //save.Volume = _musicPlayerViewModel.MediaElement.Volume;
-            //save.Position = _musicPlayerViewModel.MediaElement.Position;
-            //json = JsonConvert.SerializeObject(save).ToString();
-            //File.WriteAllText(_baseDomain + _slash + "media_element.json", json);
         }
     }
 }
