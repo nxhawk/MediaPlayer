@@ -99,7 +99,7 @@ namespace MediaPlayer.Views.UC
                 });
 
                 
-                if (playlistViewModel.Playlists[index].Name ==mainWindow.MusicPlayerViewModel.CurrentPlaylist.Name)
+                if (playlistViewModel?.Playlists[index].Name ==mainWindow.MusicPlayerViewModel?.CurrentPlaylist?.Name)
                 {
                     //TODO: shuffle tmp
                     foreach (var item in _tmp)

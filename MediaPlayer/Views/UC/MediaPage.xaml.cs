@@ -167,7 +167,7 @@ namespace MediaPlayer.Views.UC
                     }
                 });
 
-                if (Playlist.Name == MusicPlayerViewModel.CurrentPlaylist.Name)
+                if (Playlist.Name == MusicPlayerViewModel?.CurrentPlaylist?.Name)
                 {
                     //TODO: shuffle tmp
 
@@ -181,13 +181,13 @@ namespace MediaPlayer.Views.UC
 
         private void playBtn_Click(object sender, RoutedEventArgs e)
         {
+
             if (Playlist.Medias.Count == 0) return;
             MusicPlayerViewModel.MediaIndex = 0;
             MusicPlayerViewModel.CurrentPlaylist = Playlist;
             MusicPlayerViewModel.retypeMusicPlayType();
             MusicPlayerViewModel.setNewSong();
             MusicPlayerViewModel.PlaySound();
-
             //mainWindow.changeSizeVideoScreen();
         }
 
@@ -226,15 +226,19 @@ namespace MediaPlayer.Views.UC
                 return;
             }
 
-            if (MusicPlayerViewModel.CurrentPlaylist != Playlist)
+            if (MusicPlayerViewModel?.CurrentPlaylist != Playlist)
             {
+
                 MusicPlayerViewModel.tmp = MusicPlayerViewModel.CurrentPlaylist;
                 MusicPlayerViewModel.CurrentPlaylist = Playlist;
             }
 
+
             MusicPlayerViewModel.shufflePlaylist(0);
+
             MusicPlayerViewModel.setSong(selectedIndex);
             MusicPlayerViewModel.retypeMusicPlayType();
+
         }
 
         private void saveBtn_Click(object sender, RoutedEventArgs e)

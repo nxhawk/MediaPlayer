@@ -72,15 +72,17 @@ namespace MediaPlayer.ViewModels
             if (CurrentMedia != null)
             {
                 MediaElement.Stop();
+
             }
             if (CurrentPlaylist != null)
             {
-                
+
                 addRecentlyPlayed();
-                if (RecentlyPlayed.Count > 100)
+                if (RecentlyPlayed?.Count > 100)
                 {
                     RecentlyPlayed.RemoveAt(100);
                 }
+
                 CurrentMedia = CurrentPlaylist.Medias[myShufflePlaylist[MediaIndex]];
                 CurrentTime = new TimeSpan(0, 0, 0, 0, 0);
             }
@@ -204,6 +206,7 @@ namespace MediaPlayer.ViewModels
         public void addRecentlyPlayed()
         {
             if (CurrentMedia == null) return;
+
             StoreMedia storeMedia = new StoreMedia(CurrentMedia, CurrentTime, CurrentPlaylist);
             if (tmp != null)
             {
@@ -282,6 +285,7 @@ namespace MediaPlayer.ViewModels
         public void shufflePlaylist(int type=0)
         {
             if (CurrentPlaylist == null) return;
+
             // 0: linear
             // 1: shuffle
             myShufflePlaylist = new List<int>();
@@ -291,14 +295,18 @@ namespace MediaPlayer.ViewModels
             }
             if (type == 0)
             {
+
                 for (int i = 0; i < CurrentPlaylist.Medias.Count; i++)
                 {
-                    if (CurrentPlaylist.Medias[i].Title == CurrentMedia.Title)
+
+                    if (CurrentPlaylist.Medias[i].Title == CurrentMedia?.Title)
                     {
                         MediaIndex = i;
                         break;
                     }
-                }    
+                }
+
+
             }
             else
             {
