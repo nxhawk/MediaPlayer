@@ -270,7 +270,7 @@ namespace MediaPlayer.ViewModels
 
         public void retypeMusicPlayType()
         {
-            if (typeContinueMusic == "Linear")
+            if (typeContinueMusic == "Shuffle")
             {
                 typeContinueMusic = "Shuffle";
                 shufflePlaylist(1);

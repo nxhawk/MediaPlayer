@@ -72,8 +72,8 @@ namespace MediaPlayer.Views.UC
                             
                             musicPlayerViewModel.shufflePlaylist(0);
                             musicPlayerViewModel.setSong(j);
-                            musicPlayerViewModel.retypeMusicPlayType();
 
+                            musicPlayerViewModel.retypeMusicPlayType();
                             musicPlayerViewModel.CurrentTime = storeTime;
                             musicPlayerViewModel.MediaElement.Position = storeTime;
                             return;
