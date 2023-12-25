@@ -47,14 +47,14 @@
             x:Name="playlistsListView" 
             ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
             ItemsSource="{Binding playlistViewModel.Playlists}">
-
-            <ListView.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Add" Name="addMenuItem" Click="addMenuItem_Click" Icon="{materialDesign:PackIcon Kind=Add}"/>
-                    <MenuItem Header="Delete" Name="deleteMenuItem" Click="deleteMenuItem_Click"
-                  Icon="{materialDesign:PackIcon Kind=Delete}"/>
+            <ListView.Resources>
+                <ContextMenu x:Key="ItemContextMenu">
+                        <MenuItem Header="Add" Name="addMenuItem" Click="addMenuItem_Click" Icon="{materialDesign:PackIcon Kind=Add}"/>
+                        <MenuItem Header="Delete" Name="deleteMenuItem" Click="deleteMenuItem_Click"
+                        Icon="{materialDesign:PackIcon Kind=Delete}"/>
                 </ContextMenu>
-            </ListView.ContextMenu>
+            </ListView.Resources>
+            
             
             
             <ListView.ItemTemplate>
@@ -101,6 +101,7 @@
                     <EventSetter Event="Drop" Handler="ListViewItem_Drop"/>
                     <EventSetter Event="DragOver" Handler="ListViewItem_DragOver"/>
                     <Setter Property="AllowDrop" Value="True"/>
+                    <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}" />
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.ItemsPanel>
