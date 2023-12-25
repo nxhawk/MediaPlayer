@@ -188,7 +188,7 @@ namespace MediaPlayer.Views.UC
                 MusicPlayerViewModel.MediaElement.Volume = 0;
                 volumeIcon.Kind = PackIconKind.VolumeOff;
             }
-            else
+            else if (MusicPlayerViewModel.storeVolume > 0)
             {
                 MusicPlayerViewModel.MediaElement.Volume = MusicPlayerViewModel.storeVolume;
                 volumeIcon.Kind = PackIconKind.VolumeHigh;
