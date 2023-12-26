@@ -115,6 +115,8 @@
                     Margin="5" 
                     Name="btnNextMusic"
                     Click="btnNextMusic_Click"
+                    MouseEnter="btnNextMusic_MouseEnter"
+                    MouseLeave="btnNextMusic_MouseLeave"
                     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                     Style="{StaticResource MaterialDesignIconForegroundButton}"
                     ToolTip="MaterialDesignIconButton"

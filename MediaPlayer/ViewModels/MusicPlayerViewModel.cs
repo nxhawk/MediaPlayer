@@ -67,6 +67,9 @@ namespace MediaPlayer.ViewModels
             }
         }
 
+        [JsonIgnore]
+        public Media NextMedia { get; set; }
+
         public void setNewSong()
         {
             if (CurrentMedia != null)
@@ -84,6 +87,12 @@ namespace MediaPlayer.ViewModels
                 }
 
                 CurrentMedia = CurrentPlaylist.Medias[myShufflePlaylist[MediaIndex]];
+
+                // get next music
+                int nextIdx = MediaIndex + 1;
+                if (nextIdx >= CurrentPlaylist.Medias.Count) nextIdx = 0;
+
+                NextMedia = CurrentPlaylist.Medias[myShufflePlaylist[nextIdx]];
                 CurrentTime = new TimeSpan(0, 0, 0, 0, 0);
             }
         }
@@ -206,7 +215,6 @@ namespace MediaPlayer.ViewModels
         public void addRecentlyPlayed()
         {
             if (CurrentMedia == null) return;
-
             StoreMedia storeMedia = new StoreMedia(CurrentMedia, CurrentTime, CurrentPlaylist);
             if (tmp != null)
             {
@@ -322,8 +330,15 @@ namespace MediaPlayer.ViewModels
                     int swapTemp = myShufflePlaylist[index_1];
                     myShufflePlaylist[index_1] = myShufflePlaylist[index_2];
                     myShufflePlaylist[index_2] = swapTemp;
+
+
                 }
             }
+
+            int nextIdx = MediaIndex + 1;
+            if (nextIdx >= CurrentPlaylist.Medias.Count) nextIdx = 0;
+
+            NextMedia = CurrentPlaylist.Medias[myShufflePlaylist[nextIdx]];
         }
     }
 }

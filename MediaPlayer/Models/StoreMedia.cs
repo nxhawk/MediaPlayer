@@ -16,7 +16,7 @@ namespace MediaPlayer.Models
         public Playlist playlist { get; set; }
         public StoreMedia(Media media, TimeSpan timeSpan, Playlist _playlist)
         {
-            Media = new Media(media.Fullpath, media.PlayListName);
+            Media = new Media(media.Fullpath, _playlist.Name);
             storeTime = timeSpan;
             playlist = _playlist;
         }

@@ -236,5 +236,15 @@ namespace MediaPlayer.Views.UC
         {
             mainWindow.showRecentlyMedia();
         }
+
+        private void btnNextMusic_MouseEnter(object sender, MouseEventArgs e)
+        {
+            mainWindow.canvasNextMusic.Visibility = Visibility.Visible;
+        }
+
+        private void btnNextMusic_MouseLeave(object sender, MouseEventArgs e)
+        {
+            mainWindow.canvasNextMusic.Visibility = Visibility.Hidden;
+        }
     }
 }

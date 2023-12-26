@@ -16,6 +16,68 @@
         <converter:AutoSpinImageConverter x:Key="AutoSpinImageConverter"/>
     </Window.Resources>
     <Grid>
+        <Canvas Width="300" Height="135" VerticalAlignment="Bottom" Panel.ZIndex="1" Margin="115,0,0,63" Name="canvasNextMusic" Visibility="Hidden">
+            <Polygon  Points="20,30,80,30,50,70" Stroke="#35383f" Fill="#35383f" Canvas.Bottom="0" Canvas.Left="100"/>
+            <Border Width="300" Height="125" CornerRadius="30" BorderThickness="5" >
+                <Border CornerRadius="10" BorderThickness="10">
+                    <Border.BorderBrush>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#35383f" Offset="0.0"/>
+                            <GradientStop Color="#2d2f32" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Border.BorderBrush>
+
+                    <Grid>
+                        <Grid.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#35383f" Offset="0.0"/>
+                                <GradientStop Color="#2d2f32" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
+                        <TextBlock Foreground="#808286" FontSize="16" FontWeight="Bold">Phát tiếp theo</TextBlock>
+
+                        <StackPanel Orientation="Horizontal" Name="leftControl" Margin="0,20,0,0">
+                            <Image Width="50" Height="50" Margin="0,0,15,0"  x:Name="showVideoScreen">
+                                <Image.Clip>
+                                    <RectangleGeometry
+                                            RadiusX="5"
+                                            RadiusY="5"
+                                            Rect="0,0,50,50"/>
+                                </Image.Clip>
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                        <Setter Property="Source" Value="{Binding MusicPlayerViewModel.NextMedia.ArtCover, Mode=OneWay}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding MusicPlayerViewModel.NextMedia}" Value="{x:Null}">
+                                                <Setter Property="Visibility" Value="Hidden"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+
+
+                            <TextBlock VerticalAlignment="Center" Height="auto" TextWrapping="Wrap" Width="220" Name="textInfo">
+                                <Run Text="{Binding MusicPlayerViewModel.NextMedia.Title, Mode=OneWay}"  FontWeight="Bold" FontSize="15" Foreground="#fff"/>
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding MusicPlayerViewModel.NextMedia}" Value="{x:Null}">
+                                                <Setter Property="Visibility" Value="Hidden"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </StackPanel>
+                    </Grid>
+                    
+                </Border>
+            </Border>
+        </Canvas>
+        
         <Canvas Width="500" Height="200" VerticalAlignment="Bottom" Panel.ZIndex="1" Margin="0,0,0,35" Name="canvasPreview">
             <Image Name="previewImage" Width="500" Height="200" VerticalAlignment="Bottom" Canvas.Left="0" Canvas.Bottom="0" />
         </Canvas>

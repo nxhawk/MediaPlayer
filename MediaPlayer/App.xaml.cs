@@ -58,6 +58,7 @@ namespace MediaPlayer
 
         protected override void OnExit(ExitEventArgs e)
         {
+            _musicPlayerViewModel.shufflePlaylist(0);
             _musicPlayerViewModel.MediaElement.Pause();
             base.OnExit(e);
 
