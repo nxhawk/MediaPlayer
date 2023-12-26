@@ -239,6 +239,7 @@ namespace MediaPlayer.Views.UC
 
         private void btnNextMusic_MouseEnter(object sender, MouseEventArgs e)
         {
+            if (MusicPlayerViewModel.NextMedia == null) return;
             mainWindow.canvasNextMusic.Visibility = Visibility.Visible;
         }
 

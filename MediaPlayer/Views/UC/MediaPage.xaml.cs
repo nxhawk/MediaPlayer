@@ -57,6 +57,7 @@ namespace MediaPlayer.Views.UC
 
         private void RenameBtn_Click(object sender, RoutedEventArgs e)
         {
+            var oldName = Playlist.Name;
             RenamePlaylist dialog = new RenamePlaylist(Playlist.Name);
             dialog.Owner = mainWindow;
             dialog.NameChanged += screen_PlaylistNameChanged;
@@ -67,6 +68,7 @@ namespace MediaPlayer.Views.UC
                 return;
             }
             Playlist.Name = generatePlaylistName(dialog.newName);
+            MusicPlayerViewModel.changePlaylistName(oldName, Playlist);
         }
 
         private string generatePlaylistName(string playlistName)

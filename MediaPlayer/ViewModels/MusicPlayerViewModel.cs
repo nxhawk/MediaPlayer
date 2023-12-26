@@ -340,5 +340,17 @@ namespace MediaPlayer.ViewModels
 
             NextMedia = CurrentPlaylist.Medias[myShufflePlaylist[nextIdx]];
         }
+
+
+        public void changePlaylistName(string oldName, Playlist _playlist)
+        {
+            foreach (var item in RecentlyPlayed)
+            {
+                if (item.title == oldName)
+                {
+                    item.changeName(_playlist);
+                }
+            }
+        }
     }
 }
