@@ -5,25 +5,63 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MediaPlayer.Views.Dialog"
         mc:Ignorable="d"
-        Background="#2a213a"
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="None"
+        AllowsTransparency="True" 
+        Background="Transparent"
         FontFamily="Inter"
-        Title="Media Player Dialog" Height="150" Width="300"
+        Title="Media Player Dialog" Height="130" Width="300"
         FocusManager.FocusedElement="{x:Reference playlistName}"
         >
-    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-        <TextBox x:Name="playlistName" Width="250" Height="40"
-                 FontSize="20"
-                 KeyDown="OnKeyDownHandler"
-                 Foreground="#fff"
-                 Margin="10"/>
-        <Button
-            Width="130"
-            Click="Button_Click"
-            Background="#9b4de0"
-            Content="Add new"
-            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-            Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
-            ToolTip="Resource name: MaterialDesignRaisedSecondaryDarkButton" 
-        />
-    </StackPanel>
+    <Window.Resources>
+        <Style x:Key="imgClose" TargetType="Image">
+            <Setter Property="Width" Value="30" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Margin" Value="0 13 13 0" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="1.1" ScaleY="1.1"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Image Source="pack://application:,,,/Assets/Images/close.png" Grid.Column="1" Panel.ZIndex="1" MouseUp="Image_MouseUp" Style="{StaticResource imgClose}" Margin="0,8,10,0"/>
+        <Border CornerRadius="15" BorderBrush="Transparent" BorderThickness="2" MouseDown="Border_MouseDown">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#9b4de0" Offset="0" />
+                    <GradientStop Color="#c273ed" Offset="1" />
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Grid>
+                <Canvas>
+                </Canvas>
+                <Image Source="pack://application:,,,/Assets/Images/title.png" Width="20" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10"/>
+                <TextBlock Text="Dialog new playlist" Foreground="#120822" FontSize="16" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="40,12,10,10" />
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <TextBox x:Name="playlistName" Width="250" Height="35"
+                         FontSize="20"
+                         KeyDown="OnKeyDownHandler"
+                         Foreground="#fff"
+                         Margin="0,30,0,10"/>
+                    <Button
+                        Width="130"
+                        Click="Button_Click"
+                        Content="Add new"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
+                        ToolTip="Resource name: MaterialDesignRaisedSecondaryDarkButton" 
+                    />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
 </Window>

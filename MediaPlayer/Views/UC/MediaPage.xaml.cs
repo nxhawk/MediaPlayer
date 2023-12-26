@@ -199,22 +199,37 @@ namespace MediaPlayer.Views.UC
             {
                 return;
             }
-            if (selectedIndex == MusicPlayerViewModel.myShufflePlaylist[MusicPlayerViewModel.MediaIndex] && Playlist.Name == MusicPlayerViewModel.CurrentPlaylist?.Name)
+            //if (selectedIndex == MusicPlayerViewModel.myShufflePlaylist[MusicPlayerViewModel.MediaIndex] && Playlist.Name == MusicPlayerViewModel.CurrentPlaylist?.Name)
+            //{
+            //    return;
+            //}
+
+            if (MusicPlayerViewModel.CurrentPlaylist?.Name == Playlist.Name && MusicPlayerViewModel.CurrentMedia.Title == Playlist.Medias[selectedIndex].Title)
             {
+                CustomMessageBox dialog = new CustomMessageBox("This song is currently playing so cannot be deleted");
+                dialog.Owner = mainWindow;
+                dialog.ShowDialog();
                 return;
             }
+            if (MusicPlayerViewModel.CurrentPlaylist?.Name == Playlist.Name)
+            {
+                int idx = -1;
+                for (int i = 0; i < MusicPlayerViewModel.myShufflePlaylist.Count; i++)
+                {
+                    if (MusicPlayerViewModel.myShufflePlaylist[i] > selectedIndex)
+                        MusicPlayerViewModel.myShufflePlaylist[i]--;
+                    else if (MusicPlayerViewModel.myShufflePlaylist[i] == selectedIndex)
+                        idx = i;
+                }
+                if (idx != -1)
+                {
+                    MusicPlayerViewModel.myShufflePlaylist.RemoveAt(idx);
 
-            int idx = -1;
-            for (int i = 0; i < MusicPlayerViewModel.myShufflePlaylist.Count; i++)
-            {
-                if (MusicPlayerViewModel.myShufflePlaylist[i] > selectedIndex)
-                    MusicPlayerViewModel.myShufflePlaylist[i]--;
-                else if (MusicPlayerViewModel.myShufflePlaylist[i] == selectedIndex)
-                    idx = i;
-            }
-            if (idx != -1)
-            {
-                MusicPlayerViewModel.myShufflePlaylist.RemoveAt(idx);
+                    // get next music
+                    int nextIdx = MusicPlayerViewModel.MediaIndex + 1;
+                    if (nextIdx >= MusicPlayerViewModel.myShufflePlaylist.Count) nextIdx = 0;
+                    MusicPlayerViewModel.NextMedia = MusicPlayerViewModel.CurrentPlaylist?.Medias[MusicPlayerViewModel.myShufflePlaylist[nextIdx]];
+                }
             }
             Playlist.Medias.RemoveAt(selectedIndex);
         }
@@ -244,6 +259,13 @@ namespace MediaPlayer.Views.UC
 
         private void saveBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (Playlist.Medias.Count <= 0)
+            {
+                CustomMessageBox dialog = new CustomMessageBox("The playlist doesn't have any songs so it can't be saved");
+                dialog.Owner = mainWindow;
+                dialog.ShowDialog();
+                return;
+            }
             var folderDialog = new CommonOpenFileDialog
             {
                 IsFolderPicker = true,
@@ -282,7 +304,7 @@ namespace MediaPlayer.Views.UC
                     }
                 }
 
-                CustomMessageBox dialog = new CustomMessageBox("Save your playlist success!");
+                CustomMessageBox dialog = new CustomMessageBox("Saved your playlist successfully!");
                 dialog.Owner = mainWindow;
                 dialog.ShowDialog();
             }

@@ -18,20 +18,22 @@
     </Window.Resources>
     <Grid>
         <Canvas Width="210" Height="62" VerticalAlignment="Bottom" Panel.ZIndex="1" Margin="812,0,0,63" Name="canvasRecentlyMedia" Visibility="Hidden">
-            <Polygon  Points="20,30,80,30,50,70" Stroke="#35383f" Fill="#35383f" Canvas.Bottom="0" Canvas.Left="58"/>
+            <Polygon  Points="20,30,80,30,50,70" Stroke="#c273ed" Fill="#c273ed" Canvas.Bottom="0" Canvas.Left="58"/>
             <Border Width="210" Height="52" CornerRadius="10" BorderThickness="5" >
                 <Border CornerRadius="4" BorderThickness="10">
                     <Border.BorderBrush>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="#35383f" Offset="0.0"/>
-                            <GradientStop Color="#2d2f32" Offset="1.0"/>
+                            <GradientStop Color="#9b4de0" Offset="0.0"/>
+                            <GradientStop Color="#c273ed" Offset="0.5"/>
+                            <GradientStop Color="#9b4de0" Offset="1.0"/>
                         </LinearGradientBrush>
                     </Border.BorderBrush>
                     <Grid>
                         <Grid.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                <GradientStop Color="#35383f" Offset="0.0"/>
-                                <GradientStop Color="#2d2f32" Offset="1.0"/>
+                                <GradientStop Color="#9b4de0" Offset="0.0"/>
+                                <GradientStop Color="#c273ed" Offset="0.5"/>
+                                <GradientStop Color="#9b4de0" Offset="1.0"/>
                             </LinearGradientBrush>
                         </Grid.Background>
                         <TextBlock Foreground="#fff" FontSize="16" FontWeight="Bold" Text="Danh sách phát gần đây"></TextBlock>
@@ -46,14 +48,16 @@
                 <Border CornerRadius="4" BorderThickness="10">
                     <Border.BorderBrush>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="#35383f" Offset="0.0"/>
+                            <GradientStop Color="#2d2f32" Offset="0.0"/>
+                            <GradientStop Color="#35383f" Offset="0.5"/>
                             <GradientStop Color="#2d2f32" Offset="1.0"/>
                         </LinearGradientBrush>
                     </Border.BorderBrush>
                     <Grid>
                         <Grid.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                <GradientStop Color="#35383f" Offset="0.0"/>
+                                <GradientStop Color="#2d2f32" Offset="0.0"/>
+                                <GradientStop Color="#35383f" Offset="0.5"/>
                                 <GradientStop Color="#2d2f32" Offset="1.0"/>
                             </LinearGradientBrush>
                         </Grid.Background>
@@ -64,21 +68,23 @@
         </Canvas>
 
         <Canvas Width="185" Height="62" VerticalAlignment="Bottom" Panel.ZIndex="1" Margin="-230,0,0,63" Name="canvasPlayMode" Visibility="Hidden">
-            <Polygon  Points="20,30,80,30,50,70" Stroke="#35383f" Fill="#35383f" Canvas.Bottom="0" Canvas.Left="42"/>
+            <Polygon  Points="20,30,80,30,50,70" Stroke="#c273ed" Fill="#c273ed" Canvas.Bottom="0" Canvas.Left="42"/>
             <Border Width="185" Height="52" CornerRadius="10" BorderThickness="5" >
                 <Border CornerRadius="4" BorderThickness="10">
                     <Border.BorderBrush>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="#35383f" Offset="0.0"/>
-                            <GradientStop Color="#2d2f32" Offset="1.0"/>
+                            <GradientStop Color="#9b4de0" Offset="0.0"/>
+                            <GradientStop Color="#c273ed" Offset="0.5"/>
+                            <GradientStop Color="#9b4de0" Offset="1.0"/>
                         </LinearGradientBrush>
                     </Border.BorderBrush>
 
                     <Grid>
                         <Grid.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                <GradientStop Color="#35383f" Offset="0.0"/>
-                                <GradientStop Color="#2d2f32" Offset="1.0"/>
+                                <GradientStop Color="#9b4de0" Offset="0.0"/>
+                                <GradientStop Color="#c273ed" Offset="0.5"/>
+                                <GradientStop Color="#9b4de0" Offset="1.0"/>
                             </LinearGradientBrush>
                         </Grid.Background>
                         <TextBlock Foreground="#fff" FontSize="16" FontWeight="Bold" Text="{Binding MusicPlayerViewModel.typeContinueMusic, Converter={StaticResource PlayModeToVisibilityConverter}}"></TextBlock>
@@ -94,7 +100,8 @@
                 <Border CornerRadius="10" BorderThickness="10">
                     <Border.BorderBrush>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="#35383f" Offset="0.0"/>
+                            <GradientStop Color="#2d2f32" Offset="0.0"/>
+                            <GradientStop Color="#35383f" Offset="0.5"/>
                             <GradientStop Color="#2d2f32" Offset="1.0"/>
                         </LinearGradientBrush>
                     </Border.BorderBrush>
@@ -102,7 +109,8 @@
                     <Grid>
                         <Grid.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                <GradientStop Color="#35383f" Offset="0.0"/>
+                                <GradientStop Color="#2d2f32" Offset="0.0"/>
+                                <GradientStop Color="#35383f" Offset="0.5"/>
                                 <GradientStop Color="#2d2f32" Offset="1.0"/>
                             </LinearGradientBrush>
                         </Grid.Background>

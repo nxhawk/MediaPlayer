@@ -352,5 +352,6 @@ namespace MediaPlayer.ViewModels
                 }
             }
         }
+
     }
 }

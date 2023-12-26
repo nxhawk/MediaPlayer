@@ -30,5 +30,16 @@ namespace MediaPlayer.Views.Dialog
         {
             DialogResult = true;
         }
+
+        private void Image_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            DialogResult = false;
+        }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
     }
 }

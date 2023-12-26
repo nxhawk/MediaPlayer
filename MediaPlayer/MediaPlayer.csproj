@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Images\close.png" />
     <None Remove="Assets\Images\playing.gif" />
     <None Remove="Assets\Images\title.png" />
     <None Remove="Assets\Images\white.png" />
@@ -25,6 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Images\close.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\Images\playing.gif">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

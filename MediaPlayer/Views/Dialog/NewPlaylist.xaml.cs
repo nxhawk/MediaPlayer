@@ -23,8 +23,6 @@ namespace MediaPlayer.Views.Dialog
         public NewPlaylist()
         {
             InitializeComponent();
-            Uri icon = new Uri("pack://application:,,,/Assets/Images/title.png", UriKind.RelativeOrAbsolute);
-            Icon = BitmapFrame.Create(icon);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -53,6 +51,17 @@ namespace MediaPlayer.Views.Dialog
                 newPlaylist = new Playlist(playlistName.Text, new ObservableCollection<Media>());
                 DialogResult = true;
             }
+        }
+
+        private void Image_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            DialogResult = false;
+        }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
         }
     }
 }

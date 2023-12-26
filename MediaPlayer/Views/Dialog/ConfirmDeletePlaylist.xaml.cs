@@ -22,8 +22,6 @@ namespace MediaPlayer.Views.Dialog
         public ConfirmDeletePlaylist(string name)
         {
             InitializeComponent();
-            Uri icon = new Uri("pack://application:,,,/Assets/Images/title.png", UriKind.RelativeOrAbsolute);
-            Icon = BitmapFrame.Create(icon);
         }
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
@@ -34,6 +32,17 @@ namespace MediaPlayer.Views.Dialog
         private void CancleBtn_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
+        }
+
+        private void Image_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            DialogResult = false;
+        }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
         }
     }
 }
