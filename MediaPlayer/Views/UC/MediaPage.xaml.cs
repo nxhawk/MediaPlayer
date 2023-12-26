@@ -190,7 +190,6 @@ namespace MediaPlayer.Views.UC
             MusicPlayerViewModel.retypeMusicPlayType();
             MusicPlayerViewModel.setNewSong();
             MusicPlayerViewModel.PlaySound();
-            //mainWindow.changeSizeVideoScreen();
         }
 
         private void removeMenuItem_Click(object sender, RoutedEventArgs e)

@@ -41,12 +41,19 @@ namespace MediaPlayer.Views.UC
 
         private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+            double changeSize = 0;
             if (mainWindow.Width < 900 || MusicPlayerViewModel.CurrentPlaylist == null)
             {
                 textInfo.Visibility = Visibility.Collapsed;
-                return;
+                changeSize = 100;
             }
+            else
+            {
                 textInfo.Visibility = Visibility.Visible;
+            }
+            changeSize = 812 - (1200 - mainWindow.Width);
+            
+            mainWindow.canvasRecentlyMedia.Margin = new Thickness(changeSize,0,0,63);
 
         }
 
@@ -246,6 +253,36 @@ namespace MediaPlayer.Views.UC
         private void btnNextMusic_MouseLeave(object sender, MouseEventArgs e)
         {
             mainWindow.canvasNextMusic.Visibility = Visibility.Hidden;
+        }
+
+        private void typeNextMusicBtn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            mainWindow.canvasPlayMode.Visibility = Visibility.Visible;
+        }
+
+        private void typeNextMusicBtn_MouseLeave(object sender, MouseEventArgs e)
+        {
+            mainWindow.canvasPlayMode.Visibility = Visibility.Hidden;
+        }
+
+        private void showCurrentPlayList_MouseEnter(object sender, MouseEventArgs e)
+        {
+            mainWindow.canvasCurrentPlaylist.Visibility = Visibility.Visible;
+        }
+
+        private void showCurrentPlayList_MouseLeave(object sender, MouseEventArgs e)
+        {
+            mainWindow.canvasCurrentPlaylist.Visibility = Visibility.Hidden;
+        }
+
+        private void oldMediaBtn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            mainWindow.canvasRecentlyMedia.Visibility = Visibility.Visible;
+        }
+
+        private void oldMediaBtn_MouseLeave(object sender, MouseEventArgs e)
+        {
+            mainWindow.canvasRecentlyMedia.Visibility = Visibility.Hidden;
         }
     }
 }

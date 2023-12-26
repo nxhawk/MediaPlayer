@@ -164,8 +164,8 @@ namespace MediaPlayer
 
         private void update_size(object sender, SizeChangedEventArgs e)
         {
-            //videoScreen.Width = containerSt.Width;
-            //imageScreenMusic.Width = containerSt.Width;
+            double changeSize = (1200 - this.Width) * (-1);
+            containerSt.Margin = new Thickness(changeSize, 30, 50, 0);
         }
     }
 }

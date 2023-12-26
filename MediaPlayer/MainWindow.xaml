@@ -14,8 +14,80 @@
         Height="700" Width="1200">
     <Window.Resources>
         <converter:AutoSpinImageConverter x:Key="AutoSpinImageConverter"/>
+        <converter:PlayModeToVisibilityConverter x:Key="PlayModeToVisibilityConverter"/>
     </Window.Resources>
     <Grid>
+        <Canvas Width="210" Height="62" VerticalAlignment="Bottom" Panel.ZIndex="1" Margin="812,0,0,63" Name="canvasRecentlyMedia" Visibility="Hidden">
+            <Polygon  Points="20,30,80,30,50,70" Stroke="#35383f" Fill="#35383f" Canvas.Bottom="0" Canvas.Left="58"/>
+            <Border Width="210" Height="52" CornerRadius="10" BorderThickness="5" >
+                <Border CornerRadius="4" BorderThickness="10">
+                    <Border.BorderBrush>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#35383f" Offset="0.0"/>
+                            <GradientStop Color="#2d2f32" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Border.BorderBrush>
+                    <Grid>
+                        <Grid.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#35383f" Offset="0.0"/>
+                                <GradientStop Color="#2d2f32" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
+                        <TextBlock Foreground="#fff" FontSize="16" FontWeight="Bold" Text="Danh sách phát gần đây"></TextBlock>
+                    </Grid>
+                </Border>
+            </Border>
+        </Canvas>
+
+        <Canvas Width="198" Height="62" VerticalAlignment="Bottom" Panel.ZIndex="1" Margin="230,0,0,63" Name="canvasCurrentPlaylist" Visibility="Hidden">
+            <Polygon  Points="20,30,80,30,50,70" Stroke="#35383f" Fill="#35383f" Canvas.Bottom="0" Canvas.Left="50"/>
+            <Border Width="198" Height="52" CornerRadius="10" BorderThickness="5" >
+                <Border CornerRadius="4" BorderThickness="10">
+                    <Border.BorderBrush>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#35383f" Offset="0.0"/>
+                            <GradientStop Color="#2d2f32" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Border.BorderBrush>
+                    <Grid>
+                        <Grid.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#35383f" Offset="0.0"/>
+                                <GradientStop Color="#2d2f32" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
+                        <TextBlock Foreground="#fff" FontSize="16" FontWeight="Bold" Text="Mở Playlist đang phát"></TextBlock>
+                    </Grid>
+                </Border>
+            </Border>
+        </Canvas>
+
+        <Canvas Width="185" Height="62" VerticalAlignment="Bottom" Panel.ZIndex="1" Margin="-230,0,0,63" Name="canvasPlayMode" Visibility="Hidden">
+            <Polygon  Points="20,30,80,30,50,70" Stroke="#35383f" Fill="#35383f" Canvas.Bottom="0" Canvas.Left="42"/>
+            <Border Width="185" Height="52" CornerRadius="10" BorderThickness="5" >
+                <Border CornerRadius="4" BorderThickness="10">
+                    <Border.BorderBrush>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#35383f" Offset="0.0"/>
+                            <GradientStop Color="#2d2f32" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Border.BorderBrush>
+
+                    <Grid>
+                        <Grid.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#35383f" Offset="0.0"/>
+                                <GradientStop Color="#2d2f32" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
+                        <TextBlock Foreground="#fff" FontSize="16" FontWeight="Bold" Text="{Binding MusicPlayerViewModel.typeContinueMusic, Converter={StaticResource PlayModeToVisibilityConverter}}"></TextBlock>
+                       </Grid>
+
+                </Border>
+            </Border>
+        </Canvas>
+
         <Canvas Width="300" Height="135" VerticalAlignment="Bottom" Panel.ZIndex="1" Margin="115,0,0,63" Name="canvasNextMusic" Visibility="Hidden">
             <Polygon  Points="20,30,80,30,50,70" Stroke="#35383f" Fill="#35383f" Canvas.Bottom="0" Canvas.Left="100"/>
             <Border Width="300" Height="125" CornerRadius="30" BorderThickness="5" >
@@ -93,18 +165,18 @@
                 <DockPanel>
                     <DockPanel LastChildFill="True">
                         <Button
-                    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                    Style="{StaticResource MaterialDesignIconButton}"
-                    ToolTip="MaterialDesignIconButton" Width="50" Height="50"
-                    VerticalAlignment="Top"
-                    HorizontalAlignment="Left"
-                    Name="btnBack"
-                    Margin="0,10,0,0"
-                    Click="btnBack_Click">
-                            <materialDesign:PackIcon Kind="ChevronLeft" Width="50" Height="50"/>
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                            Style="{StaticResource MaterialDesignIconButton}"
+                            Panel.ZIndex="100"
+                            ToolTip="MaterialDesignIconButton" Width="50" Height="50"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Left"
+                            Name="btnBack"
+                            Margin="0,10,0,0"
+                            Click="btnBack_Click">
+                                <materialDesign:PackIcon Kind="ChevronLeft" Width="50" Height="50"/>
                         </Button>
                         <StackPanel x:Name="containerSt" Orientation="Vertical" Margin="0,30,50,0">
-                            <!--<Image Source="{Binding MusicPlayerViewModel.CurrentMedia.ArtCover}" Name="imageScreenMusic"/>-->
                             <Ellipse Name="imageScreenMusic" Height="auto" Width="600">
                                 <Ellipse.Fill>
                                     <ImageBrush ImageSource="{Binding MusicPlayerViewModel.CurrentMedia.ArtCover}">

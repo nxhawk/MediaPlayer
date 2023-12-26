@@ -85,6 +85,8 @@
                         ToolTip="MaterialDesignIconButton"
                         Name="typeNextMusicBtn"
                         Click="typeNextMusicBtn_Click"
+                        MouseEnter="typeNextMusicBtn_MouseEnter"
+                        MouseLeave="typeNextMusicBtn_MouseLeave"
                     >
                     <materialDesign:PackIcon Kind="ShuffleDisabled" Width="30" Height="30" Name="iconTypeNextMusic" Foreground="#fff"/>
                 </Button>
@@ -131,6 +133,8 @@
                         ToolTip="MaterialDesignIconButton"
                         Name="showCurrentPlayList"
                         Click="showCurrentPlayList_Click"
+                        MouseEnter="showCurrentPlayList_MouseEnter"
+                        MouseLeave="showCurrentPlayList_MouseLeave"
                 >
                     <materialDesign:PackIcon Kind="PlaylistMusic" Width="30" Height="30" Foreground="#fff"/>
                 </Button>
@@ -142,6 +146,8 @@
                 <Button
                         x:Name="oldMediaBtn"
                         Click="oldMediaBtn_Click"
+                        MouseEnter="oldMediaBtn_MouseEnter"
+                        MouseLeave="oldMediaBtn_MouseLeave"
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"
                         Style="{StaticResource MaterialDesignIconForegroundButton}"
                         ToolTip="MaterialDesignIconForegroundButton">
