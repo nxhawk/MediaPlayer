@@ -207,17 +207,25 @@ namespace MediaPlayer.Views.UC
                 foreach (string item in files)
                 {
                     // check file is media file
-                    string extension = System.IO.Path.GetExtension(item).ToLower();
-                    if (!(extension == ".mp3" || extension == ".flac" || extension == ".ogg" || extension == ".wav") && !(extension == ".mp4" || extension == ".avi" || extension == ".mkv"))
-                        continue;
-           
-                    // add file music
-                    var fullPath = item;
-                    playlistViewModel.Playlists[index].Medias.Add(new Media(fullPath, namePlaylist));
-                    if (playlistViewModel.Playlists[index].Medias.Count <= 4)
+                    try
                     {
-                        playlistViewModel.Playlists[index].NotifyOnPlaylistChanged();
+                        string extension = System.IO.Path.GetExtension(item).ToLower();
+                        if (!(extension == ".mp3" || extension == ".flac" || extension == ".ogg" || extension == ".wav") && !(extension == ".mp4" || extension == ".avi" || extension == ".mkv"))
+                            continue;
+
+                        // add file music
+                        var fullPath = item;
+                        playlistViewModel.Playlists[index].Medias.Add(new Media(fullPath, namePlaylist));
+                        if (playlistViewModel.Playlists[index].Medias.Count <= 4)
+                        {
+                            playlistViewModel.Playlists[index].NotifyOnPlaylistChanged();
+                        }
                     }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                    
                 }
             }
         }

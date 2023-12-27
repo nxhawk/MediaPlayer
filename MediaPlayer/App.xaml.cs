@@ -1,5 +1,6 @@
 ﻿using MediaPlayer.Keys;
 using MediaPlayer.ViewModels;
+using MediaPlayer.Views.Dialog;
 using Newtonsoft.Json;
 using System;
 using System.Windows;
@@ -22,28 +23,43 @@ namespace MediaPlayer
             base.OnStartup(e);
             MainWindow window = new MainWindow();
 
-            if (File.Exists(_baseDomain + _slash + _playlistFile))
+            try
             {
-                var json = File.ReadAllText(_baseDomain + _slash + _playlistFile);
-                if (json != null || json != "")
+                if (File.Exists(_baseDomain + _slash + _playlistFile))
                 {
-                    _playlistViewModel = JsonConvert.DeserializeObject<PlaylistViewModel>(json!)!;
+                    var json = File.ReadAllText(_baseDomain + _slash + _playlistFile);
+                    if (json != null || json != "")
+                    {
+                        _playlistViewModel = JsonConvert.DeserializeObject<PlaylistViewModel>(json!)!;
+                    }
                 }
-            }
-            window.PlaylistViewModel = _playlistViewModel;
 
-            if (File.Exists(_baseDomain + _slash + _musicFile))
-            {
-                var json = File.ReadAllText(_baseDomain + _slash + _musicFile);
-                if (json != null || json != "")
+                window.PlaylistViewModel = _playlistViewModel;
+
+                if (File.Exists(_baseDomain + _slash + _musicFile))
                 {
-                    _musicPlayerViewModel = JsonConvert.DeserializeObject<MusicPlayerViewModel>(json!)!;
+                    var json = File.ReadAllText(_baseDomain + _slash + _musicFile);
+                    if (json != null || json != "")
+                    {
+                        _musicPlayerViewModel = JsonConvert.DeserializeObject<MusicPlayerViewModel>(json!)!;
+                    }
                 }
+                window.MusicPlayerViewModel = _musicPlayerViewModel;
             }
-            window.MusicPlayerViewModel = _musicPlayerViewModel;
-            
+            catch {
+                _playlistViewModel = new PlaylistViewModel();
+                _musicPlayerViewModel = new MusicPlayerViewModel();
+                window.PlaylistViewModel = _playlistViewModel;
+                window.MusicPlayerViewModel = _musicPlayerViewModel;
 
-            window.Show();
+                CustomMessageBox dialog = new CustomMessageBox("Error restoring data, application will restart");
+                var desktopWorkingArea = System.Windows.SystemParameters.WorkArea;
+                dialog.Left = (desktopWorkingArea.Right - dialog.Width)/2;
+                dialog.Top = (desktopWorkingArea.Bottom - dialog.Height)/2;
+                dialog.ShowDialog();
+            }
+
+            window.Show();            
         }
 
         private void Application_Activated(object sender, EventArgs e)

@@ -86,8 +86,15 @@ namespace MediaPlayer.Models
         public Media(string fullpath, string name)
         {
             Fullpath = fullpath;
-            _tagFile = TagLib.File.Create(fullpath);
-            PlayListName = name;
+            try
+            {
+                _tagFile = TagLib.File.Create(fullpath);
+                PlayListName = name;
+            }catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
         }
     }
 }

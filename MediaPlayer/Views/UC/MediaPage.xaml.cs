@@ -12,6 +12,7 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -184,7 +185,13 @@ namespace MediaPlayer.Views.UC
         private void playBtn_Click(object sender, RoutedEventArgs e)
         {
 
-            if (Playlist.Medias.Count == 0) return;
+            if (Playlist.Medias.Count == 0)
+            {
+                CustomMessageBox dialog = new CustomMessageBox("The playlist currently has no songs so it cannot be played");
+                dialog.Owner = mainWindow;
+                dialog.ShowDialog();
+                return;
+            }
             MusicPlayerViewModel.MediaIndex = 0;
             MusicPlayerViewModel.CurrentPlaylist = Playlist;
             MusicPlayerViewModel.retypeMusicPlayType();
@@ -199,10 +206,6 @@ namespace MediaPlayer.Views.UC
             {
                 return;
             }
-            //if (selectedIndex == MusicPlayerViewModel.myShufflePlaylist[MusicPlayerViewModel.MediaIndex] && Playlist.Name == MusicPlayerViewModel.CurrentPlaylist?.Name)
-            //{
-            //    return;
-            //}
 
             if (MusicPlayerViewModel.CurrentPlaylist?.Name == Playlist.Name && MusicPlayerViewModel.CurrentMedia.Title == Playlist.Medias[selectedIndex].Title)
             {
@@ -257,7 +260,28 @@ namespace MediaPlayer.Views.UC
 
         }
 
-        private void saveBtn_Click(object sender, RoutedEventArgs e)
+        private void threadSavePlaylist(string newFolderPath)
+        {
+            // store media to this folder
+            foreach (var item in Playlist.Medias)
+            {
+                string fileName = item.Fullpath;
+                string[] folderPath = fileName.Split('\\');
+
+                fileName = folderPath[folderPath.Length - 1];
+                string filePath = System.IO.Path.Combine(newFolderPath, fileName);
+
+                WebClient webClient = new WebClient();
+                try
+                {
+                    webClient.DownloadFile((new Uri(item.Fullpath)).AbsoluteUri, filePath);
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+        }
+        private async void saveBtn_Click(object sender, RoutedEventArgs e)
         {
             if (Playlist.Medias.Count <= 0)
             {
@@ -266,6 +290,7 @@ namespace MediaPlayer.Views.UC
                 dialog.ShowDialog();
                 return;
             }
+
             var folderDialog = new CommonOpenFileDialog
             {
                 IsFolderPicker = true,
@@ -285,26 +310,20 @@ namespace MediaPlayer.Views.UC
                 // good folder path => new folder
                 Directory.CreateDirectory(newFolderPath);
 
-                // store media to this folder
-                foreach (var item in Playlist.Medias)
+                //store playlist
+                CustomMessageBox dialog = new CustomMessageBox("Your playlist is being saved, please wait a moment");
+                dialog.Owner = mainWindow;
+                dialog.ShowDialog();
+
+                try
                 {
-                    string fileName = item.Fullpath;
-                    string[] folderPath = fileName.Split('\\');
-
-                    fileName = folderPath[folderPath.Length - 1];
-                    string filePath = System.IO.Path.Combine(newFolderPath, fileName);
-
-                    WebClient webClient = new WebClient();
-                    try
-                    {
-                        webClient.DownloadFile((new Uri(item.Fullpath)).AbsoluteUri, filePath);
-                    }
-                    catch (Exception ex)
-                    {
-                    }
+                    await System.Threading.Tasks.Task.Run(() => threadSavePlaylist(newFolderPath));
+                    dialog = new CustomMessageBox("Saved your playlist successfully!");
+                }
+                catch (Exception ex) {
+                    dialog = new CustomMessageBox("Error: " + ex.Message);
                 }
 
-                CustomMessageBox dialog = new CustomMessageBox("Saved your playlist successfully!");
                 dialog.Owner = mainWindow;
                 dialog.ShowDialog();
             }

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MediaPlayer.Views.Dialog"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Foreground="#fff"
@@ -49,11 +50,16 @@
                 <TextBlock Text="Dialog rename playlist" Foreground="#120822" FontSize="16" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="40,12,10,10" />
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                     <TextBox x:Name="playlistName" Width="250" Height="40"
+                             MaxLength="18"
              TextChanged="playlistName_TextChanged"
              KeyDown="OnKeyDownHandler"
              Text="{Binding newName}"
          FontSize="20"
-         Margin="0,30,0,10"/>
+         Margin="0,30,0,10">
+                        <materialDesign:TextFieldAssist.CharacterCounterStyle>
+                            <Style TargetType="TextBlock" />
+                        </materialDesign:TextFieldAssist.CharacterCounterStyle>
+                    </TextBox>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Button
             Width="130"

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MediaPlayer.Views.Dialog"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         WindowStartupLocation="CenterOwner"
         WindowStyle="None"
@@ -50,8 +51,13 @@
                     <TextBox x:Name="playlistName" Width="250" Height="35"
                          FontSize="20"
                          KeyDown="OnKeyDownHandler"
+                         MaxLength="18"
                          Foreground="#fff"
-                         Margin="0,30,0,10"/>
+                         Margin="0,30,0,10">
+                        <materialDesign:TextFieldAssist.CharacterCounterStyle>
+                            <Style TargetType="TextBlock" />
+                        </materialDesign:TextFieldAssist.CharacterCounterStyle>
+                    </TextBox>
                     <Button
                         Width="130"
                         Click="Button_Click"
