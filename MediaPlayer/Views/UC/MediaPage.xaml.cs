@@ -47,12 +47,13 @@ namespace MediaPlayer.Views.UC
         {
            mainWindow = (MainWindow)Application.Current.MainWindow;
            MusicPlayerViewModel = mainWindow.MusicPlayerViewModel;
+
         }
 
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            mainWindow.CurrentComponent.Content = mainWindow.PrevPage;
+            mainWindow.CurrentComponent.Content = (ListPlaylist)mainWindow.userControls["ListPlaylist"];
             mainWindow.PrevPage = null;
         }
 
