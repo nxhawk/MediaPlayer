@@ -54,7 +54,7 @@ namespace MediaPlayer
             HotkeysManager.AddHotkey(playStopHotkey);
 
             //press key left to next music
-            GlobalHotkey playNextHotkey = new GlobalHotkey(ModifierKeys.Control, Key.Left,
+            GlobalHotkey playNextHotkey = new GlobalHotkey(ModifierKeys.Control, Key.Right,
                () =>
                {
                    MediaService mediaControl = (MediaService)userControls["MediaService"];
@@ -65,7 +65,7 @@ namespace MediaPlayer
             HotkeysManager.AddHotkey(playNextHotkey);
 
             //press key ctrl right to previous music
-            GlobalHotkey playPrevHotkey = new GlobalHotkey(ModifierKeys.Control, Key.Right,
+            GlobalHotkey playPrevHotkey = new GlobalHotkey(ModifierKeys.Control, Key.Left,
                () =>
                {
                    MediaService mediaControl = (MediaService)userControls["MediaService"];

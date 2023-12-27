@@ -80,6 +80,7 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Name="centerControl">
                 <Button
                         Margin="5" 
+                        Focusable="False"                    
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Style="{StaticResource MaterialDesignIconForegroundButton}"
                         ToolTip="MaterialDesignIconButton"
@@ -98,6 +99,7 @@
                     ToolTip="MaterialDesignIconButton"
                     Name="btnPrevMusic"
                     Click="btnPrevMusic_Click"
+                    Focusable="False"
                     >
                     <materialDesign:PackIcon Kind="SkipPrevious" Width="30" Height="30" Foreground="#fff"/>
                 </Button>
@@ -106,6 +108,7 @@
                     x:Name="btnPlay"
                     Click="btnPlay_Click"
                     Margin="5" 
+                    Focusable="False"                    
                     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                     Style="{StaticResource MaterialDesignIconForegroundButton}"
                     ToolTip="MaterialDesignIconButton"
@@ -122,6 +125,7 @@
                     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                     Style="{StaticResource MaterialDesignIconForegroundButton}"
                     ToolTip="MaterialDesignIconButton"
+                    Focusable="False"                    
                     >
                     <materialDesign:PackIcon Kind="SkipNext" Width="30" Height="30" Foreground="#fff"/>
                 </Button>
@@ -132,6 +136,7 @@
                         Style="{StaticResource MaterialDesignIconForegroundButton}"
                         ToolTip="MaterialDesignIconButton"
                         Name="showCurrentPlayList"
+                        Focusable="False"                        
                         Click="showCurrentPlayList_Click"
                         MouseEnter="showCurrentPlayList_MouseEnter"
                         MouseLeave="showCurrentPlayList_MouseLeave"
@@ -145,6 +150,7 @@
                             Margin="10">
                 <Button
                         x:Name="oldMediaBtn"
+                        Focusable="False"                       
                         Click="oldMediaBtn_Click"
                         MouseEnter="oldMediaBtn_MouseEnter"
                         MouseLeave="oldMediaBtn_MouseLeave"
@@ -156,6 +162,7 @@
                 <Button
                         x:Name="volumeBtn"
                         Click="volumeBtn_Click"
+                        Focusable="False"
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"
                         Style="{StaticResource MaterialDesignIconForegroundButton}"
                         ToolTip="MaterialDesignIconForegroundButton">

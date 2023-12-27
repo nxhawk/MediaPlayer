@@ -80,6 +80,7 @@
                                 FontFamily="Inter"
                                 Background="#9b4de0"
                                 Click="playBtn_Click"
+                                Focusable="False"                                
                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
@@ -97,6 +98,7 @@
                                 FontFamily="Inter"
                                 Width="80"
                                 Margin="10"
+                                Focusable="False"                                
                                 Name="AddBtn"
                                 Click="AddBtn_Click"
                                 Foreground="Blue"
@@ -117,6 +119,7 @@
                                 Style="{StaticResource MaterialDesignPaperDarkButton}"
                                 ToolTip="Resource name: MaterialDesignPaperDarkButton" 
                                 Click="RenameBtn_Click"
+                                Focusable="False"                                
                             >
                                 <materialDesign:PackIcon Kind="Rename" Height="30" Width="30" VerticalAlignment="Center" />
                             </Button>
@@ -129,6 +132,7 @@
                                 Margin="10"
                                 Name="DeleteBtn"
                                 Click="DeleteBtn_Click"
+                                Focusable="False"                                
                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                 Style="{StaticResource MaterialDesignPaperDarkButton}"
                                 ToolTip="Resource name: MaterialDesignPaperDarkButton" 
@@ -139,6 +143,7 @@
                             <Grid Width="120">
                                 <Button
                                     FontSize="20"
+                                    Focusable="False"                                    
                                     FontFamily="Inter"
                                     Content="Save"
                                     Name="saveBtn"

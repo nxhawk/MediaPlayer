@@ -19,12 +19,16 @@
                     PlacementMode="RightAndAlignMiddles"
                     Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
                     ToolTip="PopupBox, Style MaterialDesignMultiFloatingActionPopupBox"
-                    ToolTipService.Placement="Right">
+                    ToolTipService.Placement="Right"
+                    Focusable="False"                   
+                    
+                >
                     <StackPanel>
                     <Button
                         Width="50"
                         Height="50"
                         Click="addPlaylist_Click"
+                        Focusable="False" 
                     >
                         <materialDesign:PackIcon Kind="Plus" Width="20" Height="20" />
                     </Button>
@@ -32,6 +36,7 @@
                         Width="50"
                         Height="50"
                         Click="importFolder_Click"
+                        Focusable="False" 
                     >
                         <materialDesign:PackIcon Kind="FolderPlusOutline" Width="20" Height="20" />
                     </Button>

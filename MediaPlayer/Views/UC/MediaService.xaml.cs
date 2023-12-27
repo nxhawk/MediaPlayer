@@ -139,7 +139,6 @@ namespace MediaPlayer.Views.UC
         }
         private void btnNextMusic_Click(object sender, RoutedEventArgs e)
         {
-
             playNextSong();
         }
 
