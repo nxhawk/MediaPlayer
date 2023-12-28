@@ -31,6 +31,10 @@ namespace MediaPlayer.Models
                 {
                     return Path.GetFileNameWithoutExtension(Fullpath);
                 }
+                
+                if (_tagFile.Tag.Title == null)
+                    return Path.GetFileNameWithoutExtension(Fullpath);
+
                 return _tagFile.Tag.Title;
             }
         }
