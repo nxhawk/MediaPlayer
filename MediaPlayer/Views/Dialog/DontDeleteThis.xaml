@@ -51,7 +51,7 @@
                     <TextBlock x:Name="playlistName" Width="280" Height="50" TextWrapping="Wrap"
                         Text="This playlist is currently playing so cannot be deleted"
                         FontSize="20"
-                        Margin="0,30,0,10"/>
+                        Margin="0,30,0,10" TextAlignment="Center"/>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Button
      Width="130"
