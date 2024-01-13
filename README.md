@@ -37,4 +37,4 @@
 - [x] 4. Cho phép tạo nhiều playlist khác nhau
 # Điểm đề nghị: 10
 # Video demo
-(Link video)[]
+[Link video](https://www.youtube.com/watch?v=myGYZRaTjvI&feature=youtu.be)
